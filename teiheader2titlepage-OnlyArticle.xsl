@@ -10,8 +10,8 @@
             <xd:p/>
         </xd:desc>
     </xd:doc>
-    <xsl:strip-space elements="xsl:*"/>
-    <xsl:output method="xml" version="1.0" indent="yes" encoding="UTF-8"/>
+   <!--<xsl:strip-space elements="xsl:*"/>
+       <xsl:output method="xml" version="1.0" indent="yes" encoding="UTF-8"/>  --> 
 
     <xsl:template match="TEI">
         <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
