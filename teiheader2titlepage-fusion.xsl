@@ -31,7 +31,6 @@
     <xsl:template name="TEXT">
         <xsl:if test="text">
             <text xmlns="http://www.tei-c.org/ns/1.0">
-                <!--<xsl:copy-of select="text/child::*"/>-->
                 <xsl:call-template name="FRONT"/>
                 <xsl:call-template name="BODY"/>
                 <xsl:call-template name="BACK"/>
@@ -52,11 +51,12 @@
             <xsl:call-template name="DOCIMPRINT"/>
             <xsl:call-template name="IMPRIMATUR"/>
             <xsl:call-template name="DOCEDITION"/>
+            <xsl:call-template name="DIV"/>
         </titlePage>
     </xsl:template>
     
     <xsl:template name="DOCTITLE">
-        <xsl:if test="teiHeader/fileDesc/titleStmt/title">
+        <xsl:if test="text/front/teiHeader/fileDesc/titleStmt/title">
             <docTitle xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:call-template name="TITLEPART"/>
             </docTitle>
@@ -68,17 +68,48 @@
             <titlePart xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:attribute name="level">a</xsl:attribute>
                 <xsl:attribute name="type">main</xsl:attribute>
-                <xsl:attribute name="xml:lang">fr</xsl:attribute>
+                <xsl:attribute name="lang">fr</xsl:attribute>
                 <xsl:copy-of select="text/front/teiHeader/fileDesc/titleStmt/title[@type='main']/child::*"/>
             </titlePart>
         </xsl:if>
         <xsl:if test="text/front/teiHeader/fileDesc/titleStmt/title[@type='sub']">
             <titlePart xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:attribute name="type">sub</xsl:attribute>
-                <xsl:attribute name="xml:lang">fr</xsl:attribute>
-                <xsl:copy-of select="teiHeader/fileDesc/titleStmt/title[@type='sub']/child::*"/>
+                <xsl:attribute name="lang">fr</xsl:attribute>
+                <xsl:copy-of select="text/front/teiHeader/fileDesc/titleStmt/title[@type='sub']/child::*"/>
             </titlePart>
         </xsl:if>
+        <!-- <xsl:for-each select="text/front/teiHeader/fileDesc/titleStmt/title[@type='alt']">
+            <xsl:copy-of select="child::node()"/>
+        </xsl:for-each>-->
+        <xsl:if test="text/front/teiHeader/fileDesc/titleStmt/title[(@lang='en' and @type='alt')]">
+            <titlePart xmlns="http://www.tei-c.org/ns/1.0">
+                <xsl:attribute name="lang">en</xsl:attribute>
+                <xsl:attribute name="type">alt</xsl:attribute>
+                <xsl:copy-of select="text/front/teiHeader/fileDesc/titleStmt/title[(@lang='en' and @type='alt')]/child::*"/>
+            </titlePart>
+        </xsl:if>
+        <xsl:if test="text/front/teiHeader/fileDesc/titleStmt/title[(@lang='de' and @type='alt')]">
+            <titlePart xmlns="http://www.tei-c.org/ns/1.0">
+                <xsl:attribute name="lang">de</xsl:attribute>
+                <xsl:attribute name="type">alt</xsl:attribute>
+                <xsl:copy-of select="text/front/teiHeader/fileDesc/titleStmt/title[(@lang='de' and @type='alt')]/child::*"/>
+            </titlePart>
+        </xsl:if>
+        <xsl:if test="text/front/teiHeader/fileDesc/titleStmt/title[(@lang='it' and @type='alt')]">
+            <titlePart xmlns="http://www.tei-c.org/ns/1.0">
+                <xsl:attribute name="lang">it</xsl:attribute>
+                <xsl:attribute name="type">alt</xsl:attribute>
+                <xsl:copy-of select="text/front/teiHeader/fileDesc/titleStmt/title[(@lang='it' and @type='alt')]/child::*"/>
+            </titlePart>
+        </xsl:if>
+        <xsl:if test="text/front/teiHeader/fileDesc/titleStmt/title[(@lang='sp' and @type='alt')]">
+            <titlePart xmlns="http://www.tei-c.org/ns/1.0">
+                <xsl:attribute name="lang">sp</xsl:attribute>
+                <xsl:attribute name="type">alt</xsl:attribute>
+                <xsl:copy-of select="text/front/teiHeader/fileDesc/titleStmt/title[(@lang='sp' and @type='alt')]/child::*"/>
+            </titlePart>
+            </xsl:if>
     </xsl:template>
     
     <xsl:template name="DOCAUTHOR">
@@ -183,9 +214,9 @@
     
     <xsl:template name="TITLESTMT">
         <titleStmt xmlns="http://www.tei-c.org/ns/1.0">
-            <xsl:if test="text/front/teiheader/fileDesc/sourceDesc/biblFull/titleStmt/title">
+            <xsl:if test="text/front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title">
                 <title>
-                    <xsl:copy-of select="text/front/teiheader/fileDesc/sourceDesc/biblFull/titleStmt/title/child::*"/>
+                    <xsl:copy-of select="text/front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title/child::*"/>
                 </title>
             </xsl:if>
             <xsl:call-template name="RESPSTMT"/>
@@ -222,6 +253,17 @@
                 <xsl:copy-of select="text/front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno/child::*"/>
             </idno>
         </publicationStmt>
+    </xsl:template>
+    
+    <xsl:template name="DIV">
+       <xsl:for-each select="text/front/teiHeader/profileDesc/keywords">
+           <xsl:variable name="keywordLanguage" select="@lang"/>
+            <div>
+                <xsl:attribute name="xml:lang"><xsl:value-of select="$keywordLanguage"/></xsl:attribute>
+                <xsl:attribute name="type">keyword</xsl:attribute>
+                <xsl:copy-of select="child::node()"/>
+            </div>
+       </xsl:for-each>
     </xsl:template>
     
     <xsl:template name="BODY">
