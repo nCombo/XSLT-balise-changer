@@ -33,6 +33,8 @@
             <text xmlns="http://www.tei-c.org/ns/1.0">
                 <!--<xsl:copy-of select="text/child::*"/>-->
                 <xsl:call-template name="FRONT"/>
+                <xsl:call-template name="BODY"/>
+                <xsl:call-template name="BACK"/>
             </text>
         </xsl:if>
     </xsl:template>
@@ -222,6 +224,21 @@
         </publicationStmt>
     </xsl:template>
     
+    <xsl:template name="BODY">
+        <xsl:if test="text/body">
+            <body>
+                <xsl:copy-of select="text/body/child::*"/>
+            </body>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="BACK">
+        <xsl:if test="text/back">
+            <back>
+                <xsl:copy-of select="text/back/child::*"/>
+            </back>
+        </xsl:if>
+    </xsl:template>
    <!-- <xsl:template name="TEXT">
         <xsl:call-template name="FRONT"/>
         <xsl:if test="text">
