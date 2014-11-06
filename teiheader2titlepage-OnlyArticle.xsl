@@ -68,7 +68,7 @@
     </xsl:template>
 
     <xsl:template name="PERSNAME">
-        <xsl:if test="persName/forename">
+        <xsl:if test="persName">
             <persName xmlns="http://www.tei-c.org/ns/1.0">
                 <!--  <forename xmlns="http://www.tei-c.org/ns/1.0">-->
             <!-- <xsl:copy-of select="persName/child::*"/>-->
@@ -76,16 +76,14 @@
                    <forename xmlns="http://www.tei-c.org/ns/1.0">
                     <xsl:copy-of select="persName/forename/child::*"/>
                     </forename>
-                
                 </xsl:if>
                 <xsl:if test="persName/surname">
                     <surname xmlns="http://www.tei-c.org/ns/1.0">
                     <xsl:copy-of select="persName/surname/child::*"/>
                     </surname>
-                
                 </xsl:if>
                </persName>
-           </xsl:if>
+         </xsl:if>
     </xsl:template>
 
     <xsl:template name="AFFILIATION">

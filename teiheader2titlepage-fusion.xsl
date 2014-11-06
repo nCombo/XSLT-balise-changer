@@ -14,32 +14,33 @@
     
     <xsl:template match="TEI">
         <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-            xmlns:atilf="http//www.atilf.fr"
-            schemaLocation="http://www.tei-c.org/ns/1.0 http://www.lodel.org/ns/tei.openedition.1.0.xsd">
+            xmlns:atilf="http//www.atilf.fr">
             <xsl:call-template name="TEIHEADER"/>
-            <xsl:call-template name="TITLEPAGE"/>
+            <!--<xsl:call-template name="TITLEPAGE"/>-->
             <xsl:call-template name="TEXT"/>
             <xsl:call-template name="STDF"/>
         </TEI>
     </xsl:template>
     <!-- Niveau teiHeader -->
     <xsl:template name="TEIHEADER">
-        <teiHeader>
+        <teiHeader  xmlns="http://www.tei-c.org/ns/1.0">
             <xsl:copy-of select="teiHeader/child::*"/>
         </teiHeader>
     </xsl:template>
     <!-- Niveau text -->
     <xsl:template name="TEXT">
-        <xsl:call-template name="FRONT"/>
         <xsl:if test="text">
             <text xmlns="http://www.tei-c.org/ns/1.0">
-                <xsl:copy-of select="text/child::*"/>
+                <!--<xsl:copy-of select="text/child::*"/>-->
+                <xsl:call-template name="FRONT"/>
             </text>
         </xsl:if>
     </xsl:template>
     
     <xsl:template name="FRONT">
-        <xsl:call-template name="TITLEPAGE"/>
+        <front>
+            <xsl:call-template name="TITLEPAGE"/>
+        </front>
     </xsl:template>
 
     <xsl:template name="TITLEPAGE">
@@ -53,7 +54,7 @@
     </xsl:template>
     
     <xsl:template name="DOCTITLE">
-        <xsl:if test="teiHeader/fileDesc/titleStmt/title[@level='a' and @type='main']">
+        <xsl:if test="teiHeader/fileDesc/titleStmt/title">
             <docTitle xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:call-template name="TITLEPART"/>
             </docTitle>
@@ -61,22 +62,25 @@
     </xsl:template>
     
     <xsl:template name="TITLEPART">
-        <xsl:if test="teiHeader/fileDesc/titleStmt/title[@type='main']">
+        <xsl:if test="text/front/teiHeader/fileDesc/titleStmt/title[@type='main']">
             <titlePart xmlns="http://www.tei-c.org/ns/1.0">
+                <xsl:attribute name="level">a</xsl:attribute>
                 <xsl:attribute name="type">main</xsl:attribute>
-                <xsl:copy-of select="teiHeader/fileDesc/titleStmt/title/child::*"/>
+                <xsl:attribute name="xml:lang">fr</xsl:attribute>
+                <xsl:copy-of select="text/front/teiHeader/fileDesc/titleStmt/title[@type='main']/child::*"/>
             </titlePart>
         </xsl:if>
-        <xsl:if test="teiHeader/fileDesc/titleStmt/title[@type='sub']">
+        <xsl:if test="text/front/teiHeader/fileDesc/titleStmt/title[@type='sub']">
             <titlePart xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:attribute name="type">sub</xsl:attribute>
-                <xsl:copy-of select="teiHeader/fileDesc/titleStmt/title/child::*"/>
+                <xsl:attribute name="xml:lang">fr</xsl:attribute>
+                <xsl:copy-of select="teiHeader/fileDesc/titleStmt/title[@type='sub']/child::*"/>
             </titlePart>
         </xsl:if>
     </xsl:template>
     
     <xsl:template name="DOCAUTHOR">
-        <xsl:for-each select="teiHeader/fileDesc/titleStmt/author">
+        <xsl:for-each select="text/front/teiHeader/fileDesc/titleStmt/author">
             <docAuthor xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:call-template name="PERSNAME"/>
                 <xsl:call-template name="AFFILIATION"/>
@@ -86,51 +90,45 @@
     </xsl:template>
     
     <xsl:template name="PERSNAME">
-        <xsl:if test="persName/forename">
+        <xsl:if test="persName">
             <persName xmlns="http://www.tei-c.org/ns/1.0">
-                <!--  <forename xmlns="http://www.tei-c.org/ns/1.0">-->
-                <!-- <xsl:copy-of select="persName/child::*"/>-->
                 <xsl:if test="persName/forename">
                     <forename xmlns="http://www.tei-c.org/ns/1.0">
                         <xsl:copy-of select="persName/forename/child::*"/>
                     </forename>
-                    
                 </xsl:if>
                 <xsl:if test="persName/surname">
                     <surname xmlns="http://www.tei-c.org/ns/1.0">
                         <xsl:copy-of select="persName/surname/child::*"/>
                     </surname>
-                    
                 </xsl:if>
             </persName>
         </xsl:if>
     </xsl:template>
     
     <xsl:template name="AFFILIATION">
-        <xsl:if test="fileDesc/titleStmt/author/affiliation/s">
-            <!-- 1ere expression d'affiliation -->
-            <affiliation xmlns="http://www.tei-c.org/ns/1.0">
-                <orgName>
-                    <xsl:value-of select="fileDesc/titleStmt/author/affiliation/s"/>
-                </orgName>
-            </affiliation>
-        </xsl:if>
-        <xsl:if test="fileDesc/titleStmt/author/orgName/s">
-            <!-- 2e expression d'affiliation -->
-            <affiliation xmlns="http://www.tei-c.org/ns/1.0">
-                <orgName>
-                    <xsl:value-of select="fileDesc/titleStmt/author/orgName/s"/>
-                </orgName>
-            </affiliation>
-        </xsl:if>
+        <affiliation xmlns="http://www.tei-c.org/ns/1.0">
+                <!-- 1ere expression d'affiliation -->
+           <xsl:if test="affiliation/s">
+             <orgName>
+                    <xsl:copy-of select="affiliation/s/child::*"/>
+             </orgName>
+           </xsl:if>
+                <!-- 2e expression d'affiliation -->
+           <xsl:if test="orgName/s">
+               <orgName>
+                    <xsl:copy-of select="orgName/s/child::*"/>
+               </orgName>
+           </xsl:if>
+        </affiliation>
     </xsl:template>
     
     <xsl:template name="EMAIL">
-        <xsl:if test="fileDesc/titleStmt/author/email/s">
-            <email xmlns="http://www.tei-c.org/ns/1.0">
-                <xsl:value-of select="fileDesc/titleStmt/author/email/s"/>
-            </email>
-        </xsl:if>
+       <xsl:if test="email/s">
+           <email xmlns="http://www.tei-c.org/ns/1.0">
+                <xsl:copy-of select="email/s/child::*"/>
+           </email>
+       </xsl:if>
     </xsl:template>
     
     <xsl:template name="DOCIMPRINT">
@@ -144,11 +142,6 @@
                 </docDate>
             </xsl:if>
             <xsl:if test="teiHeader/fileDesc/publicationStmt/idno[@type='url']">
-                <!--<idno>-->
-                <!-- peut-être préférable d'utiliser <ref> à la place de <idno> -->
-                <!--<xsl:attribute name="type">url</xsl:attribute>
-                    <xsl:value-of select="fileDesc/publicationStmt/idno[@type='url']"></xsl:value-of>
-                    </idno>-->
                 <ref xmlns="http://www.tei-c.org/ns/1.0">
                     <xsl:attribute name="type">url</xsl:attribute>
                     <xsl:copy-of select="teiHeader/fileDesc/publicationStmt/idno[@type='url']/child::*"/>
