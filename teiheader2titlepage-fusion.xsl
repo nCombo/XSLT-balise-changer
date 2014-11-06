@@ -133,35 +133,35 @@
     
     <xsl:template name="DOCIMPRINT">
         <docImprint xmlns="http://www.tei-c.org/ns/1.0">
-            <xsl:if test="teiHeader/fileDesc/publicationStmt/date">
+            <xsl:if test="text/front/teiHeader/fileDesc/publicationStmt/date">
                 <docDate xmlns="http://www.tei-c.org/ns/1.0">
                     <xsl:attribute name="when">
-                        <xsl:value-of select="teiHeader/fileDesc/publicationStmt/date/@when"/>
+                        <xsl:value-of select="text/front/teiHeader/fileDesc/publicationStmt/date/@when"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="teiHeader/fileDesc/publicationStmt/date/child::*"/>
+                    <xsl:copy-of select="text/front/teiHeader/fileDesc/publicationStmt/date/child::*"/>
                 </docDate>
             </xsl:if>
-            <xsl:if test="teiHeader/fileDesc/publicationStmt/idno[@type='url']">
+            <xsl:if test="text/front/teiHeader/fileDesc/publicationStmt/idno[@type='url']">
                 <ref xmlns="http://www.tei-c.org/ns/1.0">
                     <xsl:attribute name="type">url</xsl:attribute>
-                    <xsl:copy-of select="teiHeader/fileDesc/publicationStmt/idno[@type='url']/child::*"/>
+                    <xsl:copy-of select="text/front/teiHeader/fileDesc/publicationStmt/idno[@type='url']/child::*"/>
                 </ref>
             </xsl:if>
-            <xsl:if test="teiHeader/profileDesc/langUsage/language">
+            <xsl:if test="text/front/teiHeader/profileDesc/langUsage/language">
                 <language>
                     <xsl:attribute name="ident">
-                        <xsl:value-of select="teiHeader/profileDesc/langUsage/language/@ident"/>
+                        <xsl:value-of select="text/front/teiHeader/profileDesc/langUsage/language/@ident"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="teiHeader/profileDesc/langUsage/language/child::*"/>
+                    <xsl:copy-of select="text/front/teiHeader/profileDesc/langUsage/language/child::*"/>
                 </language>
             </xsl:if>
         </docImprint>
     </xsl:template>
     
     <xsl:template name="IMPRIMATUR">
-        <xsl:if test="teiHeader/fileDesc/publicationStmt/availability/p">
+        <xsl:if test="text/front/teiHeader/fileDesc/publicationStmt/availability/p">
             <imprimatur xmlns="http://www.tei-c.org/ns/1.0">
-                <xsl:copy-of select="teiHeader/fileDesc/publicationStmt/availability/child::*"/>
+                <xsl:copy-of select="text/front/teiHeader/fileDesc/publicationStmt/availability/child::*"/>
             </imprimatur>
         </xsl:if>
     </xsl:template>
@@ -181,9 +181,9 @@
     
     <xsl:template name="TITLESTMT">
         <titleStmt xmlns="http://www.tei-c.org/ns/1.0">
-            <xsl:if test="teiheader/fileDesc/sourceDesc/biblFull/titleStmt/title">
+            <xsl:if test="text/front/teiheader/fileDesc/sourceDesc/biblFull/titleStmt/title">
                 <title>
-                    <xsl:copy-of select="teiheader/fileDesc/sourceDesc/biblFull/titleStmt/title/child::*"/>
+                    <xsl:copy-of select="text/front/teiheader/fileDesc/sourceDesc/biblFull/titleStmt/title/child::*"/>
                 </title>
             </xsl:if>
             <xsl:call-template name="RESPSTMT"/>
@@ -191,7 +191,7 @@
     </xsl:template>
     
     <xsl:template name="RESPSTMT">
-        <xsl:for-each select="teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/respStmt">
+        <xsl:for-each select="text/front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/respStmt">
             <respStmt xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:if test="resp">
                     <resp xmlns="http://www.tei-c.org/ns/1.0">
@@ -210,14 +210,14 @@
     <xsl:template name="PUBLICATIONSTMT">
         <publicationStmt xmlns="http://www.tei-c.org/ns/1.0">
             <date>
-                <xsl:copy-of select="teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/date/child::*"/>
+                <xsl:copy-of select="text/front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/date/child::*"/>
             </date>
             <idno>
                 <xsl:attribute name="type">
-                    <xsl:value-of select="teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno/@type"
+                    <xsl:value-of select="text/front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno/@type"
                     />
                 </xsl:attribute>
-                <xsl:copy-of select="teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno/child::*"/>
+                <xsl:copy-of select="text/front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno/child::*"/>
             </idno>
         </publicationStmt>
     </xsl:template>
