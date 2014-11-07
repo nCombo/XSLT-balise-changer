@@ -268,9 +268,9 @@
     
     <xsl:template name="EDITIONSTMT">
         <xsl:for-each select="text/front/teiHeader/fileDesc/titleStmt/editor">
-            <editorStmt>
-                <xsl:copy-of select="child::node()"/>
-            </editorStmt>
+            <editionStmt>
+                <xsl:copy-of select="."/>
+            </editionStmt>
         </xsl:for-each>
     </xsl:template>
     
@@ -313,18 +313,6 @@
             </back>
         </xsl:if>
     </xsl:template>
-   <!-- <xsl:template name="TEXT">
-        <xsl:call-template name="FRONT"/>
-        <xsl:if test="text">
-            <text  xmlns="http://www.tei-c.org/ns/1.0">
-                <xsl:copy-of select="text/child::*"/>
-            </text>
-        </xsl:if>
-    </xsl:template>
-    
-    <xsl:template name="FRONT">
-        <xsl:call-template name="TITLEPAGE"/>
-    </xsl:template>-->
     
     <!-- niveau stdf -->
     <xsl:template name="STDF">
