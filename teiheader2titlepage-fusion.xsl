@@ -41,6 +41,7 @@
     <xsl:template name="FRONT">
         <front>
             <xsl:call-template name="TITLEPAGE"/>
+            <xsl:call-template name="ABSTRACT"/>
         </front>
     </xsl:template>
 
@@ -118,6 +119,7 @@
                 <xsl:call-template name="PERSNAME"/>
                 <xsl:call-template name="AFFILIATION"/>
                 <xsl:call-template name="EMAIL"/>
+                <xsl:call-template name="ROLENAME"/>
             </docAuthor>
         </xsl:for-each>
     </xsl:template>
@@ -162,6 +164,14 @@
                 <xsl:copy-of select="email/s/child::*"/>
            </email>
        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="ROLENAME">
+        <xsl:if test="roleName/s">
+            <roleName>
+                <xsl:copy-of select="roleName/s/child::node()"/>
+            </roleName>
+        </xsl:if>
     </xsl:template>
     
     <xsl:template name="DOCIMPRINT">
@@ -266,6 +276,19 @@
        </xsl:for-each>
     </xsl:template>
     
+    <xsl:template name="ABSTRACT">
+        <abstract>
+            <xsl:for-each select="text/front/div">
+                <xsl:variable name="abstractLanguage" select="@lang"/>
+                <xsl:variable name="divType" select="@type"/>
+                <div>
+                    <xsl:attribute name="xml:lang"><xsl:value-of select="$abstractLanguage"/></xsl:attribute>
+                    <xsl:attribute name="type"><xsl:value-of select="$divType"/></xsl:attribute>
+                    <xsl:copy-of select="child::node()"/>
+                </div>
+            </xsl:for-each>
+        </abstract>
+    </xsl:template>
     <xsl:template name="BODY">
         <xsl:if test="text/body">
             <body>
