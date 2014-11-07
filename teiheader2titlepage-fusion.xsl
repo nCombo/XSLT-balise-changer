@@ -219,6 +219,7 @@
         <biblFull xmlns="http://www.tei-c.org/ns/1.0">
             <xsl:call-template name="TITLESTMT"/>
             <xsl:call-template name="PUBLICATIONSTMT"/>
+            <xsl:call-template name="EDITIONSTMT"/>
         </biblFull>
     </xsl:template>
     
@@ -263,6 +264,14 @@
                 <xsl:copy-of select="text/front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno/child::*"/>
             </idno>
         </publicationStmt>
+    </xsl:template>
+    
+    <xsl:template name="EDITIONSTMT">
+        <xsl:for-each select="text/front/teiHeader/fileDesc/titleStmt/editor">
+            <editorStmt>
+                <xsl:copy-of select="child::node()"/>
+            </editorStmt>
+        </xsl:for-each>
     </xsl:template>
     
     <xsl:template name="DIV">
