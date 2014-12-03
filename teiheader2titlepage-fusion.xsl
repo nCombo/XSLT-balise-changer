@@ -286,7 +286,7 @@
     </xsl:template>
     
     <xsl:template name="ABSTRACT">
-        <abstract>
+        
             <xsl:for-each select="text/front/div">
                 <xsl:variable name="abstractLanguage" select="@lang"/>
                 <xsl:variable name="divType" select="@type"/>
@@ -296,7 +296,9 @@
                     <xsl:copy-of select="child::node()"/>
                 </div>
             </xsl:for-each>
-        </abstract>
+        <xsl:for-each select="text/front/note">
+            <xsl:copy-of select="."/>
+        </xsl:for-each>
     </xsl:template>
     <xsl:template name="BODY">
         <xsl:if test="text/body">
