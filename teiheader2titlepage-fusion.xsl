@@ -39,7 +39,7 @@
     </xsl:template>
     
     <xsl:template name="FRONT">
-        <front>
+        <front xmlns="http://www.tei-c.org/ns/1.0">
             <xsl:call-template name="TITLEPAGE"/>
             <xsl:call-template name="ABSTRACT"/>
         </front>
@@ -145,13 +145,13 @@
         <affiliation xmlns="http://www.tei-c.org/ns/1.0">
                 <!-- 1ere expression d'affiliation -->
            <xsl:if test="affiliation/s">
-             <orgName>
+               <orgName xmlns="http://www.tei-c.org/ns/1.0">
                     <xsl:copy-of select="affiliation/s/child::*"/>
              </orgName>
            </xsl:if>
                 <!-- 2e expression d'affiliation -->
            <xsl:if test="orgName/s">
-               <orgName>
+               <orgName xmlns="http://www.tei-c.org/ns/1.0">
                     <xsl:copy-of select="orgName/s/child::*"/>
                </orgName>
            </xsl:if>
@@ -168,7 +168,7 @@
     
     <xsl:template name="ROLENAME">
         <xsl:if test="roleName/s">
-            <roleName>
+            <roleName xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:copy-of select="roleName/s/child::node()"/>
             </roleName>
         </xsl:if>
@@ -191,7 +191,7 @@
                 </ref>
             </xsl:if>
             <xsl:if test="text/front/teiHeader/profileDesc/langUsage/language">
-                <language>
+                <language xmlns="http://www.tei-c.org/ns/1.0">
                     <xsl:attribute name="ident">
                         <xsl:value-of select="text/front/teiHeader/profileDesc/langUsage/language/@ident"/>
                     </xsl:attribute>
@@ -226,7 +226,7 @@
     <xsl:template name="TITLESTMT">
         <titleStmt xmlns="http://www.tei-c.org/ns/1.0">
             <xsl:if test="text/front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title">
-                <title>
+                <title xmlns="http://www.tei-c.org/ns/1.0">
                     <xsl:copy-of select="text/front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title/child::*"/>
                 </title>
             </xsl:if>
@@ -253,10 +253,10 @@
     
     <xsl:template name="PUBLICATIONSTMT">
         <publicationStmt xmlns="http://www.tei-c.org/ns/1.0">
-            <date>
+            <date xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:copy-of select="text/front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/date/child::*"/>
             </date>
-            <idno>
+            <idno xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:attribute name="type">
                     <xsl:value-of select="text/front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno/@type"
                     />
@@ -268,7 +268,7 @@
     
     <xsl:template name="EDITIONSTMT">
         <xsl:for-each select="text/front/teiHeader/fileDesc/titleStmt/editor">
-            <editionStmt>
+            <editionStmt xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:copy-of select="."/>
             </editionStmt>
         </xsl:for-each>
@@ -277,7 +277,7 @@
     <xsl:template name="DIV">
        <xsl:for-each select="text/front/teiHeader/profileDesc/keywords">
            <xsl:variable name="keywordLanguage" select="@lang"/>
-            <div>
+           <div xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:attribute name="xml:lang"><xsl:value-of select="$keywordLanguage"/></xsl:attribute>
                 <xsl:attribute name="type">keyword</xsl:attribute>
                 <xsl:copy-of select="child::node()"/>
@@ -286,11 +286,10 @@
     </xsl:template>
     
     <xsl:template name="ABSTRACT">
-        
             <xsl:for-each select="text/front/div">
                 <xsl:variable name="abstractLanguage" select="@lang"/>
                 <xsl:variable name="divType" select="@type"/>
-                <div>
+                <div xmlns="http://www.tei-c.org/ns/1.0">
                     <xsl:attribute name="xml:lang"><xsl:value-of select="$abstractLanguage"/></xsl:attribute>
                     <xsl:attribute name="type"><xsl:value-of select="$divType"/></xsl:attribute>
                     <xsl:copy-of select="child::node()"/>
@@ -302,7 +301,7 @@
     </xsl:template>
     <xsl:template name="BODY">
         <xsl:if test="text/body">
-            <body>
+            <body xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:copy-of select="text/body/child::*"/>
             </body>
         </xsl:if>
@@ -310,7 +309,7 @@
     
     <xsl:template name="BACK">
         <xsl:if test="text/back">
-            <back>
+            <back xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:copy-of select="text/back/child::*"/>
             </back>
         </xsl:if>
@@ -319,7 +318,7 @@
     <!-- niveau stdf -->
     <xsl:template name="STDF">
         <xsl:if test="stdf">
-            <stdf  xmlns="http://www.tei-c.org/ns/1.0">
+            <stdf xmlns="http://standoff.proposal">
                 <xsl:copy-of select="stdf/child::*"/>
             </stdf>
         </xsl:if>
