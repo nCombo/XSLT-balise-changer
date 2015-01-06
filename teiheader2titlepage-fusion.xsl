@@ -22,7 +22,30 @@
     <!-- Niveau teiHeader -->
     <xsl:template name="TEIHEADER">
         <teiHeader>
-            <xsl:copy-of select="teiHeader/child::*"/>
+            <xsl:copy-of select="teiHeader/child::node()"/>
+                <xsl:if test="teiHeader/profileDesc/textClass/keywords[(@scheme='inist-francis' and @xml:lang='fr')]">
+                    <xsl:for-each select="term">
+                        <xsl:attribute name="xml:id" select="concat('ikwfr',count(./preceding-sibling::term)+1)"/> 
+                    </xsl:for-each>
+                </xsl:if>
+                <!-- <xsl:for-each select="teiHeader/profileDesc/textClass/keywords[(@scheme='inist-francis' and @xml:lang='fr')]/term">
+                    <xsl:attribute name="xml:id" select="concat('ikwfr',count(./preceding-sibling::term)+1)"/> 
+                    <xsl:for-each select="@*">
+                        <xsl:attribute name="{name()}"><xsl:value-of select="."/></xsl:attribute>
+                    </xsl:for-each>  
+                    </xsl:for-each>
+                    </xsl:copy-of>-->
+            <!--  <xsl:attribute name="xml:id" select="concat('ikwfr',position())"/>
+                </xsl:attribute> -->
+            <!--<xsl:for-each select="teiHeader/profileDesc/textClass/keywords[(@scheme='inist-francis' and @xml:lang='fr')]/term">
+                <xsl:attribute name="xml:id" select="concat('ikwfr',position())"/> 
+            </xsl:for-each>-->
+            <!--<xsl:variable name="headerChild" select="teiHeader/child::*"/>
+            <xsl:for-each select="$headerChild/descendant::keywords[(@scheme='inist-francis' and @xml:lang='fr')]/term">
+                <xsl:variable name="position" select="position()"/>
+            </xsl:for-each>-->
+            
+
         </teiHeader>
     </xsl:template>
     <!-- Niveau text -->
