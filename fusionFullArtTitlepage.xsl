@@ -37,7 +37,7 @@
             <xsl:apply-templates select="abstract"/>
         </profileDesc>
     </xsl:template>
-    <!--ajout de ID pour chaque terme de keywords-->
+    
     <xsl:template match="langUsage">
          <xsl:copy-of select="."/>
     </xsl:template>
@@ -55,7 +55,7 @@
     <xsl:template match="keywords[@scheme='cc']">
         <xsl:copy-of select="."/>
     </xsl:template>
-    
+    <!-- copy kwords and add xml:id for kwords 1 -->
     <xsl:template match="keywords[(@scheme='inist-francis' and @xml:lang='fr')]">
         <keywords>
             <xsl:attribute name="scheme">inist-francis</xsl:attribute>
@@ -71,11 +71,11 @@
             </xsl:for-each>
         </keywords>
     </xsl:template>
-
+    <!-- copy kwords 1 -->
     <xsl:template match="keywords[(@scheme='inist-francis' and @xml:lang='en')]">
        <xsl:copy-of select="."/>
     </xsl:template>
-    
+    <!-- copy kwords and add xml:id for kwords 2 -->
     <xsl:template match="keywords[(@scheme='inist-pascal' and @xml:lang='fr')]">
         <keywords>
             <xsl:attribute name="scheme">inist-pascal</xsl:attribute>
@@ -91,7 +91,7 @@
             </xsl:for-each>
         </keywords>
     </xsl:template>
-    
+    <!-- copy kwords 2 -->
     <xsl:template match="keywords[(@scheme='inist-pascal' and @xml:lang='en')]">
         <xsl:copy-of select="."/>
     </xsl:template>
@@ -112,6 +112,7 @@
     <xsl:template name="FRONT">
         <front>
             <xsl:call-template name="TITLEPAGE"/>
+            <xsl:call-template name="DIV"/>
             <xsl:call-template name="ABSTRACT"/>
         </front>
     </xsl:template>
@@ -123,7 +124,7 @@
             <xsl:call-template name="DOCIMPRINT"/>
             <xsl:call-template name="IMPRIMATUR"/>
             <xsl:call-template name="DOCEDITION"/>
-            <xsl:call-template name="DIV"/>
+            <!--<xsl:call-template name="DIV"/>-->
         </titlePage>
     </xsl:template>
     
@@ -194,7 +195,8 @@
     
     <xsl:template name="PERSNAME">
         <xsl:if test="persName">
-            <persName>
+            <xsl:copy-of select="persName"/>
+            <!--<persName>
                 <xsl:if test="persName/forename">
                     <forename>
                         <xsl:copy-of select="persName/forename/child::*"/>
@@ -205,30 +207,30 @@
                         <xsl:copy-of select="persName/surname/child::*"/>
                     </surname>
                 </xsl:if>
-            </persName>
+            </persName>-->
         </xsl:if>
     </xsl:template>
     
     <xsl:template name="AFFILIATION">
             <!-- affiliation 1 -->
          <xsl:if test="affiliation">
-            <xsl:copy-of select="."/>
+            <xsl:copy-of select="affiliation"/>
          </xsl:if>
             <!--affiliation 2 -->
          <xsl:if test="orgName">
-            <xsl:copy-of select="."/>
+             <xsl:copy-of select="orgName"/>
          </xsl:if>
     </xsl:template>
     
     <xsl:template name="EMAIL">
         <xsl:if test="email">
-          <xsl:copy-of select="."/>
+            <xsl:copy-of select="email"/>
         </xsl:if>
     </xsl:template>
     
     <xsl:template name="ROLENAME">
         <xsl:if test="roleName">
-           <xsl:copy-of select="."/>
+            <xsl:copy-of select="roleName"/>
         </xsl:if>
     </xsl:template>
     
