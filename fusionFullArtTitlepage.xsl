@@ -16,10 +16,6 @@
     <xsl:template match="TEI">
         <TEI>
             <xsl:apply-templates/>
-            
-           <!-- <xsl:call-template name="TEIHEADER"/>
-            <xsl:call-template name="TEXT"/>
-            <xsl:call-template name="STDF"/>-->
         </TEI>
     </xsl:template>
     <!-- teiHeader level : copy nodes -->
@@ -28,7 +24,6 @@
             <xsl:apply-templates select="fileDesc"/>
             <xsl:apply-templates select="profileDesc"/>
         </teiHeader>
-        
     </xsl:template>
     
     <xsl:template match="fileDesc">
@@ -49,7 +44,6 @@
     
     <xsl:template match="textClass">
         <textClass>
-            <!--<xsl:apply-templates select="keywords"/>-->
             <xsl:apply-templates select="keywords[@scheme='cc']"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-francis' and @xml:lang='fr')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-francis' and @xml:lang='en')]"/>
@@ -101,47 +95,6 @@
     <xsl:template match="keywords[(@scheme='inist-pascal' and @xml:lang='en')]">
         <xsl:copy-of select="."/>
     </xsl:template>
-    <!--<xsl:template match="//keywords">
-        <xsl:for-each select="keywords[(@scheme and @xml:lang)]">
-            <xsl:variable name="kwBase" select="@scheme"/>
-            <xsl:variable name="kwLang" select="@xml:lang"/>
-            <keywords>
-                <xsl:if test="$kwBase='cc'">
-                    <xsl:attribute name="scheme"><xsl:value-of select="$kwBase"/></xsl:attribute>
-                     <xsl:for-each select="term">
-                       <xsl:copy-of select="."/>
-                            
-                     </xsl:for-each> 
-                </xsl:if>
-                <xsl:if test="$kwBase='inist-francis' and $kwLang='fr'">
-                    <xsl:attribute name="scheme"><xsl:value-of select="$kwBase"/></xsl:attribute>
-                    <xsl:attribute name="xml:lang"><xsl:value-of select="$kwLang"/></xsl:attribute>
-                    <xsl:for-each select="term">
-                        <term>
-                            <xsl:attribute name="xml:id"><xsl:value-of select="concat('ikwfr',count(./preceding-sibling::term)+1)"/></xsl:attribute>
-                            <xsl:for-each select="@*">
-                                <xsl:attribute name="{name()}"><xsl:value-of select="."/></xsl:attribute>
-                            </xsl:for-each>  
-                            <xsl:value-of select="."/>
-                        </term>
-                    </xsl:for-each>
-                </xsl:if>
-                <xsl:if test="$kwBase='inist-pascal' and $kwLang='fr'">
-                    <xsl:attribute name="scheme"><xsl:value-of select="$kwBase"/></xsl:attribute>
-                    <xsl:attribute name="xml:lang"><xsl:value-of select="$kwLang"/></xsl:attribute>
-                    <xsl:for-each select="term">
-                        <term>
-                            <xsl:attribute name="xml:id"><xsl:value-of select="concat('ikwfr',count(./preceding-sibling::term)+1)"/></xsl:attribute>
-                            <xsl:for-each select="@*">
-                                <xsl:attribute name="{name()}"><xsl:value-of select="."/></xsl:attribute>
-                            </xsl:for-each>  
-                            <xsl:value-of select="."/>
-                        </term>
-                    </xsl:for-each>
-                </xsl:if>
-            </keywords>
-        </xsl:for-each>
-        </xsl:template>-->
 
     <xsl:template match="abstract">
         <xsl:copy-of select="."/>
