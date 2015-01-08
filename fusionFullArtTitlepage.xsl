@@ -124,7 +124,6 @@
             <xsl:call-template name="DOCIMPRINT"/>
             <xsl:call-template name="IMPRIMATUR"/>
             <xsl:call-template name="DOCEDITION"/>
-            <!--<xsl:call-template name="DIV"/>-->
         </titlePage>
     </xsl:template>
     
@@ -139,44 +138,43 @@
     <xsl:template name="TITLEPART">
         <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[@type='main']">
             <titlePart>
-                <xsl:attribute name="level">a</xsl:attribute>
                 <xsl:attribute name="type">main</xsl:attribute>
-                <xsl:attribute name="lang">fr</xsl:attribute>
+                <xsl:attribute name="xml:lang">fr</xsl:attribute>
                 <xsl:copy-of select="front/teiHeader/fileDesc/titleStmt/title[@type='main']/child::*"/>
             </titlePart>
         </xsl:if>
         <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[@type='sub']">
             <titlePart>
                 <xsl:attribute name="type">sub</xsl:attribute>
-                <xsl:attribute name="lang">fr</xsl:attribute>
+                <xsl:attribute name="xml:lang">fr</xsl:attribute>
                 <xsl:copy-of select="front/teiHeader/fileDesc/titleStmt/title[@type='sub']/child::*"/>
             </titlePart>
         </xsl:if>
         <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[(@lang='en' and @type='alt')]">
             <titlePart>
                 <xsl:attribute name="type">alt</xsl:attribute>
-                <xsl:attribute name="lang">en</xsl:attribute>
+                <xsl:attribute name="xml:lang">en</xsl:attribute>
                 <xsl:copy-of select="front/teiHeader/fileDesc/titleStmt/title[(@lang='en' and @type='alt')]/child::*"/>
             </titlePart>
         </xsl:if>
         <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[(@lang='de' and @type='alt')]">
             <titlePart>
                 <xsl:attribute name="type">alt</xsl:attribute>               
-                <xsl:attribute name="lang">de</xsl:attribute>
+                <xsl:attribute name="xml:lang">de</xsl:attribute>
                 <xsl:copy-of select="front/teiHeader/fileDesc/titleStmt/title[(@lang='de' and @type='alt')]/child::*"/>
             </titlePart>
         </xsl:if>
         <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[(@lang='it' and @type='alt')]">
             <titlePart>
                 <xsl:attribute name="type">alt</xsl:attribute>
-                <xsl:attribute name="lang">it</xsl:attribute>
+                <xsl:attribute name="xml:lang">it</xsl:attribute>
                 <xsl:copy-of select="front/teiHeader/fileDesc/titleStmt/title[(@lang='it' and @type='alt')]/child::*"/>
             </titlePart>
         </xsl:if>
         <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[(@lang='sp' and @type='alt')]">
             <titlePart>
                 <xsl:attribute name="type">alt</xsl:attribute>
-                <xsl:attribute name="lang">sp</xsl:attribute>
+                <xsl:attribute name="xml:lang">sp</xsl:attribute>
                 <xsl:copy-of select="front/teiHeader/fileDesc/titleStmt/title[(@lang='sp' and @type='alt')]/child::*"/>
             </titlePart>
         </xsl:if>
