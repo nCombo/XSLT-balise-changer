@@ -25,11 +25,11 @@
         <xsl:copy-of select="."/>
     </xsl:template>
     <xsl:template match="profileDesc">
-        <profileDesc>
+        <xsl:element name="profileDesc">
             <xsl:apply-templates select="langUsage"/>
             <xsl:apply-templates select="textClass"/>
             <xsl:apply-templates select="abstract"/>
-        </profileDesc>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="langUsage">
@@ -37,25 +37,30 @@
     </xsl:template>
 
     <xsl:template match="textClass">
-        <textClass>
+        <xsl:element name="textClass">
             <xsl:apply-templates select="keywords[@scheme='cc']"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-francis' and @xml:lang='fr')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-francis' and @xml:lang='en')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-pascal' and @xml:lang='fr')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-pascal' and @xml:lang='en')]"/>
-        </textClass>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="keywords[@scheme='cc']">
         <xsl:copy-of select="."/>
     </xsl:template>
-    <!-- copy kwords and add xml:id for kwords 1 -->
+    <!-- copy kwords and add xml:id for keywords from inist-francis in french-->
     <xsl:template match="keywords[(@scheme='inist-francis' and @xml:lang='fr')]">
-        <keywords>
-            <xsl:attribute name="scheme">inist-francis</xsl:attribute>
-            <xsl:attribute name="xml:lang">fr</xsl:attribute>
+        <xsl:element name="keywords">
+            <xsl:for-each select="@*">
+                <xsl:attribute name="{name()}">
+                    <xsl:value-of select="."/>
+                </xsl:attribute>
+            </xsl:for-each>
+            <!--<xsl:attribute name="scheme">inist-francis</xsl:attribute>
+            <xsl:attribute name="xml:lang">fr</xsl:attribute>-->
             <xsl:for-each select="term">
-                <term>
+                <xsl:element name="term">
                     <xsl:attribute name="xml:id">
                         <xsl:value-of select="concat('ikwfr',count(./preceding-sibling::term)+1)"/>
                     </xsl:attribute>
@@ -65,21 +70,26 @@
                         </xsl:attribute>
                     </xsl:for-each>
                     <xsl:value-of select="."/>
-                </term>
+                </xsl:element>
             </xsl:for-each>
-        </keywords>
+        </xsl:element>
     </xsl:template>
-    <!-- copy kwords 1 -->
+    <!-- copy keywords form inist-francis in english -->
     <xsl:template match="keywords[(@scheme='inist-francis' and @xml:lang='en')]">
         <xsl:copy-of select="."/>
     </xsl:template>
-    <!-- copy kwords and add xml:id for kwords 2 -->
+    <!-- copy kwords and add xml:id for keywords from inist-pascal in french -->
     <xsl:template match="keywords[(@scheme='inist-pascal' and @xml:lang='fr')]">
-        <keywords>
-            <xsl:attribute name="scheme">inist-pascal</xsl:attribute>
-            <xsl:attribute name="xml:lang">fr</xsl:attribute>
+        <xsl:element name="keywords">
+            <xsl:for-each select="@*">
+                <xsl:attribute name="{name()}">
+                    <xsl:value-of select="."/>
+                </xsl:attribute>
+            </xsl:for-each>
+           <!-- <xsl:attribute name="scheme">inist-pascal</xsl:attribute>
+            <xsl:attribute name="xml:lang">fr</xsl:attribute>-->
             <xsl:for-each select="term">
-                <term>
+                <xsl:element name="term">
                     <xsl:attribute name="xml:id">
                         <xsl:value-of select="concat('ikwfr',count(./preceding-sibling::term)+1)"/>
                     </xsl:attribute>
@@ -89,11 +99,11 @@
                         </xsl:attribute>
                     </xsl:for-each>
                     <xsl:value-of select="."/>
-                </term>
+                </xsl:element>
             </xsl:for-each>
-        </keywords>
+        </xsl:element>
     </xsl:template>
-    <!-- copy kwords 2 -->
+    <!-- copy keywords from inist-pascal in english-->
     <xsl:template match="keywords[(@scheme='inist-pascal' and @xml:lang='en')]">
         <xsl:copy-of select="."/>
     </xsl:template>
@@ -104,11 +114,11 @@
 
     <!-- TEXT level: copy and modify nodes-->
     <xsl:template match="text">
-        <text>
+        <xsl:element name="text">
             <xsl:call-template name="FRONT"/>
             <xsl:call-template name="BODY"/>
             <xsl:call-template name="BACK"/>
-        </text>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template name="FRONT">
