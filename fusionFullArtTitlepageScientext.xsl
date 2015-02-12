@@ -127,20 +127,7 @@
                 <xsl:apply-templates select="teiHeader/fileDesc/sourceDesc/bibl"/>
                 <xsl:apply-templates select="teiHeader/profileDesc/langUsage"/>
             </xsl:element>
-            <xsl:apply-templates select="text/front/teiHeader/profileDesc/textClass"/>
-            <!--<xsl:if test="teiHeader[position()=2]/profileDesc/textClass">
-                <xsl:for-each select="keywords">
-                    <xsl:element name="div">
-                        <xsl:attribute name="type">keyword</xsl:attribute>
-                        <xsl:for-each select="@*">
-                            <xsl:attribute name="{name()}">
-                                <xsl:value-of select="."/>
-                            </xsl:attribute>
-                        </xsl:for-each>
-                        <xsl:copy-of select="child::node()"/>
-                    </xsl:element>
-                </xsl:for-each>
-            </xsl:if>-->
+            <xsl:apply-templates select="teiHeader[position()=2]/profileDesc/textClass"/>
             <xsl:if test="head">
                 <xsl:copy-of select="head"/>
             </xsl:if>
@@ -153,7 +140,7 @@
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="text/front/teiHeader/profileDesc/textClass">
+    <xsl:template match="teiHeader[position()=2]/profileDesc/textClass">
         <xsl:for-each select="keywords">
             <xsl:element name="div">
                 <xsl:attribute name="type">keyword</xsl:attribute>
@@ -230,20 +217,6 @@
             <xsl:if test="idno">
                 <xsl:copy-of select="idno"/>
             </xsl:if>
-            <!--
-            <xsl:if test="text/front/teiHeader[position()=2]/profileDesc/langUsage">
-                <xsl:if test="language">
-                    <xsl:element name="lang">
-                        <xsl:for-each select="@*">
-                            <xsl:attribute name="{name()}">
-                                <xsl:value-of select="."/>
-                            </xsl:attribute>
-                        </xsl:for-each>
-                        <xsl:copy-of select="language/child::node()"/>
-                    </xsl:element>
-                </xsl:if>
-            </xsl:if>-->
-            <!--<xsl:apply-templates select="profileDesc/langUsage"/>-->
         </xsl:element>
         <xsl:for-each select="availability">
              <xsl:element name="imprimatur">
@@ -288,7 +261,7 @@
                 <xsl:copy-of select="child::node()"/>
             </xsl:element>
         </xsl:for-each>
-    </xsl:template>
+    </xsl:template>       
     
     <xsl:template match="body">
         <xsl:copy-of select="."/>
