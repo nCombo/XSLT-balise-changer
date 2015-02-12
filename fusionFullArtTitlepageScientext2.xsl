@@ -159,20 +159,12 @@
     </xsl:template>
 
     <xsl:template name="TITLEPART">
-        <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[@type='main']">
+        <xsl:if test="front/teiHeader/fileDesc/titleStmt/title">
             <xsl:element name="titlePart">
                 <xsl:attribute name="type">main</xsl:attribute>
                 <xsl:attribute name="xml:lang">fr</xsl:attribute>
                 <xsl:copy-of
-                    select="front/teiHeader/fileDesc/titleStmt/title[@type='main']/child::*"/>
-            </xsl:element>
-        </xsl:if>
-        <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[@type='sub']">
-            <xsl:element name="titlePart">
-                <xsl:attribute name="type">sub</xsl:attribute>
-                <xsl:attribute name="xml:lang">fr</xsl:attribute>
-                <xsl:copy-of select="front/teiHeader/fileDesc/titleStmt/title[@type='sub']/child::*"
-                />
+                    select="front/teiHeader/fileDesc/titleStmt/title/child::*"/>
             </xsl:element>
         </xsl:if>
         <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[(@lang='en' and @type='alt')]">
