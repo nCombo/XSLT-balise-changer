@@ -8,6 +8,8 @@
             <xd:p><xd:b>Created on:</xd:b> Jan 1, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b> combo</xd:p>
             <xd:p>this styleSheet is used for scientext corpora</xd:p>
+            <xd:p>this styleSheet uses template match method</xd:p>
+            <xd:p>this styleSheet copies TEI element and mapps teiHeader elements to titlePage elements</xd:p>
         </xd:desc>
     </xd:doc>
 

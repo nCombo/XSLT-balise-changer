@@ -7,6 +7,9 @@
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> Jan 1, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b> combo</xd:p>
+            <xd:p>this styleSheet is used for scientext corpora</xd:p>
+            <xd:p>this styleSheet uses call-template method</xd:p>
+            <xd:p>this styleSheet copies TEI element and mapps teiHeader elements to titlePage elements</xd:p>
             <xd:p/>
         </xd:desc>
     </xd:doc>
@@ -305,20 +308,12 @@
                     />
                 </xsl:element>
             </xsl:if>
-            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/author">
-                <xsl:element name="author">
-                    <xsl:copy-of
-                        select="front/teiHeader/fileDesc/sourceDesc/bibl/author/child::*"
-                    />
-                </xsl:element>
-            </xsl:if>
-            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/editor">
-                <xsl:element name="editor">
-                    <xsl:copy-of
-                        select="front/teiHeader/fileDesc/sourceDesc/bibl/editor/child::*"
-                    />
-                </xsl:element>
-            </xsl:if>
+            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/bibl/author">
+                    <xsl:copy-of select="."/>
+            </xsl:for-each>
+            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/bibl/editor">
+                    <xsl:copy-of select="."/>
+            </xsl:for-each>
         </xsl:element>
     </xsl:template>
 
