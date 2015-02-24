@@ -28,11 +28,11 @@
         <xsl:copy-of select="."/>
     </xsl:template>
     <xsl:template match="profileDesc">
-        <profileDesc>
+        <xsl:copy>
             <xsl:apply-templates select="langUsage"/>
             <xsl:apply-templates select="textClass"/>
             <xsl:apply-templates select="abstract"/>
-        </profileDesc>
+        </xsl:copy>
     </xsl:template>
 
     <xsl:template match="langUsage">
@@ -40,25 +40,28 @@
     </xsl:template>
 
     <xsl:template match="textClass">
-        <textClass>
+        <xsl:element name="textClass">
             <xsl:apply-templates select="keywords[@scheme='cc']"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-francis' and @xml:lang='fr')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-francis' and @xml:lang='en')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-pascal' and @xml:lang='fr')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-pascal' and @xml:lang='en')]"/>
-        </textClass>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="keywords[@scheme='cc']">
         <xsl:copy-of select="."/>
     </xsl:template>
-    <!-- copy kwords and add xml:id for kwords 1 -->
+    <!-- copy kwords and add xml:id for keywords from inist-francis in french -->
     <xsl:template match="keywords[(@scheme='inist-francis' and @xml:lang='fr')]">
-        <keywords>
-            <xsl:attribute name="scheme">inist-francis</xsl:attribute>
-            <xsl:attribute name="xml:lang">fr</xsl:attribute>
+        <xsl:element name="keywords">
+            <xsl:for-each select="@*">
+                <xsl:attribute name="{name()}">
+                    <xsl:value-of select="."/>
+                </xsl:attribute>
+            </xsl:for-each>
             <xsl:for-each select="term">
-                <term>
+                <xsl:element name="term">
                     <xsl:attribute name="xml:id">
                         <xsl:value-of select="concat('ikwfr',count(./preceding-sibling::term)+1)"/>
                     </xsl:attribute>
@@ -68,21 +71,24 @@
                         </xsl:attribute>
                     </xsl:for-each>
                     <xsl:value-of select="."/>
-                </term>
+                </xsl:element>
             </xsl:for-each>
-        </keywords>
+        </xsl:element>
     </xsl:template>
-    <!-- copy kwords 1 -->
+    <!-- copy keywords form inist-francis in english -->
     <xsl:template match="keywords[(@scheme='inist-francis' and @xml:lang='en')]">
         <xsl:copy-of select="."/>
     </xsl:template>
-    <!-- copy kwords and add xml:id for kwords 2 -->
+    <!-- copy keywords and add xml:id for keywords from inist-pascal in french -->
     <xsl:template match="keywords[(@scheme='inist-pascal' and @xml:lang='fr')]">
-        <keywords>
-            <xsl:attribute name="scheme">inist-pascal</xsl:attribute>
-            <xsl:attribute name="xml:lang">fr</xsl:attribute>
+        <xsl:element name="keywords">
+            <xsl:for-each select="@*">
+                <xsl:attribute name="{name()}">
+                    <xsl:value-of select="."/>
+                </xsl:attribute>
+            </xsl:for-each>
             <xsl:for-each select="term">
-                <term>
+                <xsl:element name="term">
                     <xsl:attribute name="xml:id">
                         <xsl:value-of select="concat('ikwfr',count(./preceding-sibling::term)+1)"/>
                     </xsl:attribute>
@@ -92,16 +98,20 @@
                         </xsl:attribute>
                     </xsl:for-each>
                     <xsl:value-of select="."/>
-                </term>
+                </xsl:element>
             </xsl:for-each>
-        </keywords>
+        </xsl:element>
     </xsl:template>
-    <!-- copy kwords 2 -->
+    <!-- copy keywords from inist-pascal in english -->
     <xsl:template match="keywords[(@scheme='inist-pascal' and @xml:lang='en')]">
         <xsl:copy-of select="."/>
     </xsl:template>
 
     <xsl:template match="abstract">
+        <xsl:copy-of select="."/>
+    </xsl:template>
+    
+    <xsl:template match="stdf">
         <xsl:copy-of select="."/>
     </xsl:template>
 
@@ -119,10 +129,11 @@
             <xsl:call-template name="TITLEPAGE"/>
             <xsl:call-template name="DIV"/>
             <xsl:call-template name="NAME"/>
-            <xsl:call-template name="ARGUMENT"/>
+            <xsl:call-template name="NOTE"/>
         </xsl:element>
     </xsl:template>
     
+    <!-- informations contained in front without teiHeader -->
     <xsl:template name="NAME">
         <xsl:for-each select="front/head">
             <xsl:copy-of select="."/>
@@ -134,10 +145,11 @@
             <xsl:copy-of select="."/>
         </xsl:for-each>
     </xsl:template>
-    <!-- Prject description-->
-    <xsl:template name="ARGUMENT">
+    
+    <!-- Project description-->
+    <xsl:template name="NOTE">
         <xsl:if test="front/teiHeader/encodingDesc/projectDesc">
-            <xsl:element name="argument">
+            <xsl:element name="note">
                 <xsl:copy-of select="front/teiHeader/encodingDesc/projectDesc/child::node()"/>
             </xsl:element>
         </xsl:if>
@@ -154,106 +166,60 @@
     </xsl:template>
 
     <xsl:template name="DOCTITLE">
-        <xsl:if test="front/teiHeader/fileDesc/titleStmt/title">
+        <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/title[position()=1]">
             <xsl:element name="docTitle">
-                <xsl:call-template name="TITLEPART"/>
-            </xsl:element>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template name="TITLEPART">
-        <xsl:if test="front/teiHeader/fileDesc/titleStmt/title">
-            <xsl:element name="titlePart">
-                <xsl:attribute name="type">main</xsl:attribute>
-                <xsl:attribute name="xml:lang">fr</xsl:attribute>
-                <xsl:copy-of
-                    select="front/teiHeader/fileDesc/titleStmt/title/child::*"/>
-            </xsl:element>
-        </xsl:if>
-        <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[(@lang='en' and @type='alt')]">
-            <xsl:element name="titlePart">
-                <xsl:attribute name="type">alt</xsl:attribute>
-                <xsl:attribute name="xml:lang">en</xsl:attribute>
-                <xsl:copy-of
-                    select="front/teiHeader/fileDesc/titleStmt/title[(@lang='en' and @type='alt')]/child::*"
-                />
-            </xsl:element>
-        </xsl:if>
-        <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[(@lang='de' and @type='alt')]">
-            <xsl:element name="titlePart">
-                <xsl:attribute name="type">alt</xsl:attribute>
-                <xsl:attribute name="xml:lang">de</xsl:attribute>
-                <xsl:copy-of
-                    select="front/teiHeader/fileDesc/titleStmt/title[(@lang='de' and @type='alt')]/child::*"
-                />
-            </xsl:element>
-        </xsl:if>
-        <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[(@lang='it' and @type='alt')]">
-            <xsl:element name="titlePart">
-                <xsl:attribute name="type">alt</xsl:attribute>
-                <xsl:attribute name="xml:lang">it</xsl:attribute>
-                <xsl:copy-of
-                    select="front/teiHeader/fileDesc/titleStmt/title[(@lang='it' and @type='alt')]/child::*"
-                />
-            </xsl:element>
-        </xsl:if>
-        <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[(@lang='sp' and @type='alt')]">
-            <xsl:element name="titlePart">
-                <xsl:attribute name="type">alt</xsl:attribute>
-                <xsl:attribute name="xml:lang">sp</xsl:attribute>
-                <xsl:copy-of
-                    select="front/teiHeader/fileDesc/titleStmt/title[(@lang='sp' and @type='alt')]/child::*"
-                />
+                <xsl:element name="titlePart">
+                    <xsl:attribute name="level">a</xsl:attribute>
+                    <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/title[position()=1]/child::node()"/>
+                </xsl:element>
             </xsl:element>
         </xsl:if>
     </xsl:template>
 
     <xsl:template name="DOCAUTHOR">
-        <xsl:for-each select="front/teiHeader/fileDesc/titleStmt/author">
+        <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/bibl/author">
             <xsl:element name="docAuthor">
-                <xsl:call-template name="PERSNAME"/>
-                <xsl:call-template name="AFFILIATION"/>
-                <xsl:call-template name="EMAIL"/>
-                <xsl:call-template name="ROLENAME"/>
+                <xsl:element name="persName">
+                    <xsl:copy-of select="child::node()"/>
+                </xsl:element>
             </xsl:element>
         </xsl:for-each>
     </xsl:template>
 
-    <xsl:template name="PERSNAME">
-        <xsl:if test="persName">
-            <xsl:copy-of select="persName"/>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template name="AFFILIATION">
-        <!-- affiliation 1 -->
-        <xsl:if test="affiliation">
-            <xsl:copy-of select="affiliation"/>
-        </xsl:if>
-        <!--affiliation 2 -->
-        <xsl:if test="orgName">
-            <xsl:copy-of select="orgName"/>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template name="EMAIL">
-        <xsl:if test="email">
-            <xsl:copy-of select="email"/>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template name="ROLENAME">
-        <xsl:if test="roleName">
-            <xsl:copy-of select="roleName"/>
-        </xsl:if>
-    </xsl:template>
-
     <xsl:template name="DOCIMPRINT">
         <xsl:element name="docImprint">
+            <xsl:if test="front/teiHeader/fileDesc/titleStmt/title">
+                <xsl:copy-of select="front/teiHeader/fileDesc/titleStmt/title"/>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/publicationStmt/publisher[position()=1]">
+                <xsl:element name="publisher">
+                    <xsl:element name="p">
+                        <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/publisher[position()=1]/child::node()"/> 
+                    </xsl:element>
+                    <xsl:if test="front/teiHeader/fileDesc/publicationStmt/publisher[position()=2]">
+                        <xsl:element name="ref">
+                            <xsl:attribute name="type">url</xsl:attribute>
+                            <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/publisher[position()=2]/child::node()"/>
+                        </xsl:element>
+                    </xsl:if>
+                    <xsl:if test="front/teiHeader/fileDesc/publicationStmt/distributor">
+                        <xsl:element name="abrr">
+                            <xsl:attribute name="type">acronym</xsl:attribute>
+                            <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/distributor/child::node()"/>
+                        </xsl:element>
+                    </xsl:if>
+                </xsl:element>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/publicationStmt/address">
+                <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/address"/>
+            </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/publicationStmt/date">
                 <xsl:element name="docDate">
                     <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/date/child::*"/>
                 </xsl:element>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/publicationStmt/idno">
+                <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/idno"/>
             </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/publicationStmt/idno[@type='url']">
                 <xsl:element name="ref">
@@ -272,11 +238,16 @@
                     <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::*"/>
                 </xsl:element>
             </xsl:if>
+            <xsl:if test="front/teiHeader/encodingDesc/projectDesc">
+                <xsl:element name="note">
+                    <xsl:copy-of select="front/teiHeader/encodingDesc/projectDesc/child::node()"/>
+                </xsl:element>
+            </xsl:if>
         </xsl:element>
     </xsl:template>
 
     <xsl:template name="IMPRIMATUR">
-        <xsl:if test="front/teiHeader/fileDesc/publicationStmt/availability/p">
+        <xsl:if test="front/teiHeader/fileDesc/publicationStmt/availability">
             <xsl:element name="imprimatur">
                 <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/availability/child::*"
                 />
@@ -286,71 +257,36 @@
 
     <xsl:template name="DOCEDITION">
         <xsl:element name="docEdition">
-            <xsl:call-template name="BIBLFULL"/>
+            <xsl:call-template name="BIBL"/>
         </xsl:element>
-    </xsl:template>
-
-    <xsl:template name="BIBLFULL">
-        <xsl:element name="biblFull">
-            <xsl:call-template name="TITLESTMT"/>
-            <xsl:call-template name="PUBLICATIONSTMT"/>
-            <xsl:call-template name="EDITIONSTMT"/>
-            <xsl:call-template name="EXTENT"/>
-        </xsl:element>
-    </xsl:template>
-
-    <xsl:template name="TITLESTMT">
-        <xsl:element name="titleStmt">
-            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/title">
-                <xsl:element name="title">
-                    <xsl:copy-of
-                        select="front/teiHeader/fileDesc/sourceDesc/bibl/title/child::*"
-                    />
-                </xsl:element>
-            </xsl:if>
-            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/bibl/author">
-                    <xsl:copy-of select="."/>
-            </xsl:for-each>
-            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/bibl/editor">
-                    <xsl:copy-of select="."/>
-            </xsl:for-each>
-        </xsl:element>
-    </xsl:template>
-
-    <xsl:template name="PUBLICATIONSTMT">
-        <xsl:element name="publicationStmt">
-            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/publisher">
-                <xsl:element name="publisher">
-                    <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/publisher/child::*"/>
-                </xsl:element>
-            </xsl:if>
-            <xsl:element name="pubPlace">
-                <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/pubPlace/child::*"/>
-            </xsl:element>
-            <xsl:element name="date">
-                <xsl:copy-of
-                    select="front/teiHeader/fileDesc/sourceDesc/bibl/date/child::*"
-                />
-            </xsl:element>
-        </xsl:element>
-    </xsl:template>
-
-    <xsl:template name="EDITIONSTMT">
-        <xsl:for-each select="front/teiHeader/fileDesc/titleStmt/editor">
-            <xsl:element name="editionStmt">
-                <xsl:copy-of select="."/>
-            </xsl:element>
-        </xsl:for-each>
     </xsl:template>
     
-    <xsl:template name="EXTENT">
-        <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/extent">
-            <xsl:element name="extent">
-                <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/extent/child::*"/>
-            </xsl:element>
-        </xsl:if>
+    <xsl:template name="BIBL">
+        <xsl:element name="bibl">
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/title[position()=2]">
+                <xsl:element name="title">
+                    <xsl:attribute name="level">j</xsl:attribute>
+                    <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/title[position()=2]/child::node()"/>
+                </xsl:element>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/editor">
+                <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/editor"/>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/date">
+                <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/date"/>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/extent">
+                <xsl:element name="idno">
+                    <xsl:attribute name="type">pp</xsl:attribute>
+                    <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/extent/child::node()"/>
+                </xsl:element>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/pubPlace">
+                <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/pubPlace"/>
+            </xsl:if>
+        </xsl:element>
     </xsl:template>
-
+    
     <xsl:template name="DIV">
         <xsl:for-each select="front/teiHeader/profileDesc/textClass/keywords">
             <xsl:element name="div">
@@ -365,15 +301,6 @@
         </xsl:for-each>
     </xsl:template>
 
-    <!--<xsl:template name="ABSTRACT">
-        <xsl:for-each select="front/div">
-            <xsl:copy-of select="."/>
-        </xsl:for-each>
-        <xsl:for-each select="front/note">
-            <xsl:copy-of select="."/>
-        </xsl:for-each>
-    </xsl:template>-->
-    
     <xsl:template name="BODY">
         <xsl:if test="body">
             <xsl:element name="body">
