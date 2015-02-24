@@ -5,7 +5,7 @@
     exclude-result-prefixes="#all" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" version="2.0">
     <xd:doc scope="stylesheet">
         <xd:desc>
-            <xd:p><xd:b>Created on:</xd:b> Jan 1, 2015</xd:p>
+            <xd:p><xd:b>Created on:</xd:b> Feb 13, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b> combo</xd:p>
             <xd:p>this styleSheet is used for scientext corpora</xd:p>
             <xd:p>this styleSheet uses call-template method</xd:p>
