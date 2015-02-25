@@ -267,11 +267,15 @@
             </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/author">
                 <xsl:element name="respStmt">
+                    <xsl:element name="resp">
+                        <xsl:text>auteur</xsl:text>
+                    </xsl:element>
                     <xsl:element name="name">
                         <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/author/child::node()"/>
                     </xsl:element>
                 </xsl:element>
             </xsl:if>
+            
             <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/editor">
                 <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/editor"/>
             </xsl:if>
