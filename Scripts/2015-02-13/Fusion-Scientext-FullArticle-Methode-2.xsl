@@ -129,30 +129,14 @@
             <xsl:call-template name="TITLEPAGE"/>
             <xsl:call-template name="DIV"/>
             <xsl:call-template name="NAME"/>
-            <xsl:call-template name="NOTE"/>
         </xsl:element>
     </xsl:template>
     
     <!-- informations contained in front without teiHeader -->
     <xsl:template name="NAME">
-        <xsl:for-each select="front/head">
-            <xsl:copy-of select="."/>
-        </xsl:for-each>
-        <xsl:for-each select="front/docAuthor">
-            <xsl:copy-of select="."/>
-        </xsl:for-each>
         <xsl:for-each select="front/div">
             <xsl:copy-of select="."/>
         </xsl:for-each>
-    </xsl:template>
-    
-    <!-- Project description-->
-    <xsl:template name="NOTE">
-        <xsl:if test="front/teiHeader/encodingDesc/projectDesc">
-            <xsl:element name="note">
-                <xsl:copy-of select="front/teiHeader/encodingDesc/projectDesc/child::node()"/>
-            </xsl:element>
-        </xsl:if>
     </xsl:template>
 
     <xsl:template name="TITLEPAGE">
@@ -166,19 +150,24 @@
     </xsl:template>
 
     <xsl:template name="DOCTITLE">
-        <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/title[position()=1]">
+        <xsl:if test="front/head">
             <xsl:element name="docTitle">
                 <xsl:element name="titlePart">
                     <xsl:attribute name="level">a</xsl:attribute>
-                    <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/title[position()=1]/child::node()"/>
+                    <xsl:copy-of select="front/head/child::node()"/>
                 </xsl:element>
             </xsl:element>
         </xsl:if>
     </xsl:template>
 
     <xsl:template name="DOCAUTHOR">
-        <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/bibl/author">
+        <xsl:for-each select="front/docAuthor">
             <xsl:element name="docAuthor">
+                <xsl:for-each select="@*">
+                    <xsl:attribute name="{name()}">
+                        <xsl:value-of select="."/>
+                    </xsl:attribute>
+                </xsl:for-each>
                 <xsl:element name="persName">
                     <xsl:copy-of select="child::node()"/>
                 </xsl:element>
@@ -203,7 +192,7 @@
                         </xsl:element>
                     </xsl:if>
                     <xsl:if test="front/teiHeader/fileDesc/publicationStmt/distributor">
-                        <xsl:element name="abrr">
+                        <xsl:element name="abbr">
                             <xsl:attribute name="type">acronym</xsl:attribute>
                             <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/distributor/child::node()"/>
                         </xsl:element>
@@ -238,6 +227,7 @@
                     <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::*"/>
                 </xsl:element>
             </xsl:if>
+            <!-- project description -->
             <xsl:if test="front/teiHeader/encodingDesc/projectDesc">
                 <xsl:element name="note">
                     <xsl:copy-of select="front/teiHeader/encodingDesc/projectDesc/child::node()"/>
@@ -263,10 +253,23 @@
     
     <xsl:template name="BIBL">
         <xsl:element name="bibl">
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/title[position()=1]">
+                <xsl:element name="title">
+                    <xsl:attribute name="level">a</xsl:attribute>
+                    <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/title[position()=1]/child::node()"/>
+                </xsl:element>
+            </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/title[position()=2]">
                 <xsl:element name="title">
                     <xsl:attribute name="level">j</xsl:attribute>
                     <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/title[position()=2]/child::node()"/>
+                </xsl:element>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/author">
+                <xsl:element name="respStmt">
+                    <xsl:element name="name">
+                        <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/author/child::node()"/>
+                    </xsl:element>
                 </xsl:element>
             </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/editor">
