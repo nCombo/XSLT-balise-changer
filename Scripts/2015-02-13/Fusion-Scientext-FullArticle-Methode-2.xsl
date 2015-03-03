@@ -132,7 +132,7 @@
         </xsl:element>
     </xsl:template>
     
-    <!-- informations contained in front without teiHeader -->
+    <!-- informations contained in front out of teiHeader -->
     <xsl:template name="NAME">
         <xsl:for-each select="front/div">
             <xsl:copy-of select="."/>
@@ -182,9 +182,7 @@
             </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/publicationStmt/publisher[position()=1]">
                 <xsl:element name="publisher">
-                    <xsl:element name="p">
-                        <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/publisher[position()=1]/child::node()"/> 
-                    </xsl:element>
+                      <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/publisher[position()=1]/child::node()"/> 
                     <xsl:if test="front/teiHeader/fileDesc/publicationStmt/publisher[position()=2]">
                         <xsl:element name="ref">
                             <xsl:attribute name="type">url</xsl:attribute>
@@ -265,20 +263,21 @@
                     <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/title[position()=2]/child::node()"/>
                 </xsl:element>
             </xsl:if>
-            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/author">
+            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/bibl/author">
                 <xsl:element name="respStmt">
                     <xsl:element name="resp">
                         <xsl:text>auteur</xsl:text>
                     </xsl:element>
                     <xsl:element name="name">
-                        <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/author/child::node()"/>
+                        <xsl:copy-of select="child::node()"/>
                     </xsl:element>
                 </xsl:element>
-            </xsl:if>
+            </xsl:for-each>
             
-            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/editor">
-                <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/editor"/>
-            </xsl:if>
+            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/bibl/editor">
+                <xsl:copy-of select="."/>
+            </xsl:for-each>
+
             <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/date">
                 <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/date"/>
             </xsl:if>
@@ -294,15 +293,20 @@
         </xsl:element>
     </xsl:template>
     
+    <!-- export textClass/keywords to a div element out of titlePage element -->
     <xsl:template name="DIV">
         <xsl:for-each select="front/teiHeader/profileDesc/textClass/keywords">
             <xsl:element name="div">
                 <xsl:attribute name="type">keyword</xsl:attribute>
-                <xsl:for-each select="@*">
-                    <xsl:attribute name="{name()}">
-                        <xsl:value-of select="."/>
-                    </xsl:attribute>
-                </xsl:for-each>
+                <xsl:if test="@scheme">
+                    <xsl:attribute name="subtype"><xsl:copy-of select="@scheme"/></xsl:attribute>
+                </xsl:if>
+                <xsl:if test="@next">
+                    <xsl:attribute name="next"><xsl:copy-of select="@next"/></xsl:attribute>
+                </xsl:if>
+                <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:copy-of select="@id"/></xsl:attribute>
+                </xsl:if>
                 <xsl:copy-of select="child::node()"/>
             </xsl:element>
         </xsl:for-each>

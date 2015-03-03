@@ -5,7 +5,7 @@
     exclude-result-prefixes="#all" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" version="2.0">
     <xd:doc scope="stylesheet">
         <xd:desc>
-            <xd:p><xd:b>Created on:</xd:b> Jan 1, 2015</xd:p>
+            <xd:p><xd:b>Created on:</xd:b> Feb 13, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b> combo</xd:p>
             <xd:p>this styleSheet is used for Open Edition corpora</xd:p>
             <xd:p>this styleSheet uses template match method and call-template method</xd:p>
@@ -28,11 +28,11 @@
         <xsl:copy-of select="."/>
     </xsl:template>
     <xsl:template match="profileDesc">
-        <profileDesc>
+        <xsl:element name="profileDesc">
             <xsl:apply-templates select="langUsage"/>
             <xsl:apply-templates select="textClass"/>
             <xsl:apply-templates select="abstract"/>
-        </profileDesc>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="langUsage">
@@ -40,25 +40,28 @@
     </xsl:template>
 
     <xsl:template match="textClass">
-        <textClass>
+        <xsl:element name="textClass">
             <xsl:apply-templates select="keywords[@scheme='cc']"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-francis' and @xml:lang='fr')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-francis' and @xml:lang='en')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-pascal' and @xml:lang='fr')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-pascal' and @xml:lang='en')]"/>
-        </textClass>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="keywords[@scheme='cc']">
         <xsl:copy-of select="."/>
     </xsl:template>
-    <!-- copy kwords and add xml:id for kwords 1 -->
+    <!-- copy kwords and add xml:id for keywords from inist-francis in french -->
     <xsl:template match="keywords[(@scheme='inist-francis' and @xml:lang='fr')]">
-        <keywords>
-            <xsl:attribute name="scheme">inist-francis</xsl:attribute>
-            <xsl:attribute name="xml:lang">fr</xsl:attribute>
+        <xsl:element name="keywords">
+            <xsl:for-each select="@*">
+                <xsl:attribute name="{name()}">
+                    <xsl:value-of select="."/>
+                </xsl:attribute>
+            </xsl:for-each>
             <xsl:for-each select="term">
-                <term>
+                <xsl:element name="term">
                     <xsl:attribute name="xml:id">
                         <xsl:value-of select="concat('ikwfr',count(./preceding-sibling::term)+1)"/>
                     </xsl:attribute>
@@ -68,21 +71,24 @@
                         </xsl:attribute>
                     </xsl:for-each>
                     <xsl:value-of select="."/>
-                </term>
+                </xsl:element>
             </xsl:for-each>
-        </keywords>
+        </xsl:element>
     </xsl:template>
-    <!-- copy kwords 1 -->
+    <!-- copy keywords form inist-francis in english -->
     <xsl:template match="keywords[(@scheme='inist-francis' and @xml:lang='en')]">
         <xsl:copy-of select="."/>
     </xsl:template>
-    <!-- copy kwords and add xml:id for kwords 2 -->
+    <!-- copy keywords and add xml:id for keywords from inist-pascal in french -->
     <xsl:template match="keywords[(@scheme='inist-pascal' and @xml:lang='fr')]">
-        <keywords>
-            <xsl:attribute name="scheme">inist-pascal</xsl:attribute>
-            <xsl:attribute name="xml:lang">fr</xsl:attribute>
+        <xsl:element name="keywords">
+            <xsl:for-each select="@*">
+                <xsl:attribute name="{name()}">
+                    <xsl:value-of select="."/>
+                </xsl:attribute>
+            </xsl:for-each>
             <xsl:for-each select="term">
-                <term>
+                <xsl:element name="term">
                     <xsl:attribute name="xml:id">
                         <xsl:value-of select="concat('ikwfr',count(./preceding-sibling::term)+1)"/>
                     </xsl:attribute>
@@ -92,11 +98,11 @@
                         </xsl:attribute>
                     </xsl:for-each>
                     <xsl:value-of select="."/>
-                </term>
+                </xsl:element>
             </xsl:for-each>
-        </keywords>
+        </xsl:element>
     </xsl:template>
-    <!-- copy kwords 2 -->
+    <!-- copy keywords from inist-pascal in english -->
     <xsl:template match="keywords[(@scheme='inist-pascal' and @xml:lang='en')]">
         <xsl:copy-of select="."/>
     </xsl:template>
@@ -107,47 +113,51 @@
 
     <!-- TEXT level: copy and modify nodes-->
     <xsl:template match="text">
-        <text>
+        <xsl:element name="text">
             <xsl:call-template name="FRONT"/>
             <xsl:call-template name="BODY"/>
             <xsl:call-template name="BACK"/>
-        </text>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template name="FRONT">
-        <front>
+        <xsl:element name="front">
             <xsl:call-template name="TITLEPAGE"/>
             <xsl:call-template name="DIV"/>
             <xsl:call-template name="ABSTRACT"/>
-        </front>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template name="TITLEPAGE">
-        <titlePage>
+        <xsl:element name="titlePage">
             <xsl:call-template name="DOCTITLE"/>
             <xsl:call-template name="DOCAUTHOR"/>
             <xsl:call-template name="DOCIMPRINT"/>
             <xsl:call-template name="IMPRIMATUR"/>
             <xsl:call-template name="DOCEDITION"/>
-        </titlePage>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template name="DOCTITLE">
         <xsl:if test="front/teiHeader/fileDesc/titleStmt/title">
-            <docTitle>
+            <xsl:element name="docTitle">
                 <xsl:call-template name="TITLEPART"/>
-            </docTitle>
+            </xsl:element>
         </xsl:if>
     </xsl:template>
 
     <xsl:template name="TITLEPART">
         <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[@type='main']">
-            <titlePart>
-                <xsl:attribute name="type">main</xsl:attribute>
-                <xsl:attribute name="xml:lang">fr</xsl:attribute>
+            <xsl:element name="TitlePart">
+                <xsl:for-each select="@*">
+                    <xsl:attribute name="{name()}">
+                        <xsl:value-of select="."/>
+                    </xsl:attribute>
+                </xsl:for-each>
+                <!--<xsl:attribute name="xml:lang">fr</xsl:attribute>-->
                 <xsl:copy-of
                     select="front/teiHeader/fileDesc/titleStmt/title[@type='main']/child::*"/>
-            </titlePart>
+            </xsl:element>
         </xsl:if>
         <xsl:if test="front/teiHeader/fileDesc/titleStmt/title[@type='sub']">
             <titlePart>
