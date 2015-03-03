@@ -163,14 +163,33 @@
     <xsl:template name="DOCAUTHOR">
         <xsl:for-each select="front/docAuthor">
             <xsl:element name="docAuthor">
-                <xsl:for-each select="@*">
-                    <xsl:attribute name="{name()}">
-                        <xsl:value-of select="."/>
-                    </xsl:attribute>
+                <xsl:if test="@id">
+                    <xsl:attribute name="xml:id"><xsl:copy-of select="@id"/></xsl:attribute>
+                </xsl:if>
+                <xsl:if test="@next">
+                    <xsl:attribute name="next"><xsl:copy-of select="@next"/></xsl:attribute>
+                </xsl:if>
+                <xsl:for-each select="name">
+                    <xsl:element name="persName">
+                        <xsl:element name="name">
+                            <xsl:if test="@id">
+                                <xsl:attribute name="xml:id"><xsl:copy-of select="@id"/></xsl:attribute>
+                            </xsl:if>
+                            <xsl:if test="@next">
+                                <xsl:attribute name="next"><xsl:copy-of select="@next"/></xsl:attribute>
+                            </xsl:if>
+                            <xsl:copy-of select="child::node()"/>
+                            <!--<xsl:for-each select="anchor">
+                                <xsl:element name="anchor">
+                                    <xsl:if test="@id">
+                                        <xsl:attribute name="xml:id"><xsl:copy-of select="@id"/></xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:copy-of select="child::node()"/>
+                                </xsl:element>
+                            </xsl:for-each>-->
+                        </xsl:element>
+                    </xsl:element>
                 </xsl:for-each>
-                <xsl:element name="persName">
-                    <xsl:copy-of select="child::node()"/>
-                </xsl:element>
             </xsl:element>
         </xsl:for-each>
     </xsl:template>
@@ -218,7 +237,7 @@
             </xsl:if>
             <xsl:if test="front/teiHeader/profileDesc/langUsage/language">
                 <xsl:element name="lang">
-                    <xsl:attribute name="ident">
+                    <xsl:attribute name="xml:id">
                         <xsl:value-of select="front/teiHeader/profileDesc/langUsage/language/@ident"
                         />
                     </xsl:attribute>
