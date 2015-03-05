@@ -266,24 +266,26 @@
         </xsl:element>
     </xsl:template>
 
+    <!-- export textClass/keywords to a div element out of titlePage element -->
     <xsl:template name="DIV">
         <xsl:for-each select="front/teiHeader/profileDesc/keywords">
             <xsl:variable name="keywordLanguage" select="@lang"/>
-            <div>
+            <xsl:element name="div">
                 <xsl:attribute name="type">keyword</xsl:attribute>
                 <xsl:attribute name="xml:lang">
                     <xsl:value-of select="$keywordLanguage"/>
                 </xsl:attribute>
                 <xsl:copy-of select="child::node()"/>
-            </div>
+            </xsl:element>
         </xsl:for-each>
     </xsl:template>
-
+    
+    <!-- abstract in front -->
     <xsl:template name="ABSTRACT">
         <xsl:for-each select="front/div">
             <xsl:variable name="abstractLanguage" select="@lang"/>
             <xsl:variable name="divType" select="@type"/>
-            <div>
+            <xsl:element name="div">
                 <xsl:attribute name="type">
                     <xsl:value-of select="$divType"/>
                 </xsl:attribute>
@@ -291,27 +293,31 @@
                     <xsl:value-of select="$abstractLanguage"/>
                 </xsl:attribute>
                 <xsl:copy-of select="child::node()"/>
-            </div>
+            </xsl:element>
         </xsl:for-each>
         <xsl:for-each select="front/note">
             <xsl:copy-of select="."/>
         </xsl:for-each>
     </xsl:template>
+    
+    <!-- BODY level -->
     <xsl:template name="BODY">
         <xsl:if test="body">
-            <body>
+            <xsl:element name="body">
                 <xsl:copy-of select="body/child::*"/>
-            </body>
+            </xsl:element>
         </xsl:if>
     </xsl:template>
+    
     <!-- BACK level -->
     <xsl:template name="BACK">
         <xsl:if test="back">
-            <back>
+            <xsl:element name="back">
                 <xsl:copy-of select="back/child::*"/>
-            </back>
+            </xsl:element>
         </xsl:if>
     </xsl:template>
+    
     <!-- STDF level -->
     <xsl:template match="stdf">
         <xsl:element name="ns:stdf">
