@@ -6,7 +6,8 @@
     <xd:doc scope="stylesheet">
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> Feb 13, 2015</xd:p>
-            <xd:p><xd:b>Author:</xd:b> combo</xd:p>
+            <xd:p><xd:b>Author:</xd:b>combo</xd:p>
+            <xd:p><xd:b>Organization:</xd:b>INIST-CNRS</xd:p>
             <xd:p>this styleSheet is used for scientext corpora</xd:p>
             <xd:p>this styleSheet uses call-template method</xd:p>
             <xd:p>this styleSheet copies TEI element and mapps teiHeader elements to titlePage elements</xd:p>
@@ -25,8 +26,39 @@
     
 
     <xsl:template match="fileDesc">
+        <xsl:copy>
+            <xsl:apply-templates select="titleStmt"/>
+            <xsl:apply-templates select="publicationStmt"/>
+            <xsl:apply-templates select="sourceDesc"/>
+        </xsl:copy>
+        <!--<xsl:copy-of select="."/>-->
+    </xsl:template>
+    
+    <xsl:template match="titleStmt">
+        <xsl:element name="titleStmt">
+            <xsl:for-each select="title">
+                <xsl:copy-of select="."/>
+            </xsl:for-each>
+            <xsl:for-each select="respStmt">
+                <xsl:element name="respStmt">
+                    <xsl:copy-of select="child::node()"/>
+                    <xsl:element name="persName">
+                        <xsl:element name="forename">Sabine</xsl:element>
+                        <xsl:element name="surname">Barreaux</xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="publicationStmt">
         <xsl:copy-of select="."/>
     </xsl:template>
+    
+    <xsl:template match="sourceDesc">
+        <xsl:copy-of select="."/>
+    </xsl:template>
+    
     <xsl:template match="profileDesc">
         <xsl:copy>
             <xsl:apply-templates select="langUsage"/>

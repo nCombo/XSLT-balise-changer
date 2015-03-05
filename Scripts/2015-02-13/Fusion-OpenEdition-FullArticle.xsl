@@ -7,6 +7,7 @@
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> Feb 13, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b> combo</xd:p>
+            <xd:p><xd:b>Organization:</xd:b>INIST-CNRS</xd:p>
             <xd:p>this styleSheet is used for Open Edition corpora</xd:p>
             <xd:p>this styleSheet uses template match method and call-template method</xd:p>
             <xd:p>this styleSheet copies TEI element and mapps teiHeader elements to titlePage elements</xd:p>
@@ -25,14 +26,41 @@
     
 
     <xsl:template match="fileDesc">
+        <xsl:copy>
+            <xsl:apply-templates select="titleStmt"/>
+            <xsl:apply-templates select="publicationStmt"/>
+            <xsl:apply-templates select="sourceDesc"/>
+        </xsl:copy>
+        <!--<xsl:copy-of select="."/>-->
+    </xsl:template>
+    <xsl:template match="titleStmt">
+        <xsl:element name="titleStmt">
+            <xsl:for-each select="title">
+                <xsl:copy-of select="."/>
+            </xsl:for-each>
+            <xsl:for-each select="respStmt">
+                <xsl:element name="respStmt">
+                    <xsl:copy-of select="child::node()"/>
+                    <xsl:element name="persName">
+                        <xsl:element name="forename">Sabine</xsl:element>
+                        <xsl:element name="surname">Barreaux</xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="publicationStmt">
+        <xsl:copy-of select="."/>
+    </xsl:template>
+    <xsl:template match="sourceDesc">
         <xsl:copy-of select="."/>
     </xsl:template>
     <xsl:template match="profileDesc">
-        <xsl:element name="profileDesc">
+        <xsl:copy>
             <xsl:apply-templates select="langUsage"/>
             <xsl:apply-templates select="textClass"/>
             <xsl:apply-templates select="abstract"/>
-        </xsl:element>
+        </xsl:copy>
     </xsl:template>
 
     <xsl:template match="langUsage">
@@ -40,13 +68,13 @@
     </xsl:template>
 
     <xsl:template match="textClass">
-        <xsl:element name="textClass">
+        <xsl:copy>
             <xsl:apply-templates select="keywords[@scheme='cc']"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-francis' and @xml:lang='fr')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-francis' and @xml:lang='en')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-pascal' and @xml:lang='fr')]"/>
             <xsl:apply-templates select="keywords[(@scheme='inist-pascal' and @xml:lang='en')]"/>
-        </xsl:element>
+        </xsl:copy>
     </xsl:template>
 
     <xsl:template match="keywords[@scheme='cc']">
@@ -218,6 +246,11 @@
                         select="front/teiHeader/fileDesc/publicationStmt/idno[@type='url']/child::*"
                     />
                 </xsl:element>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/publicationStmt/idno[@type='documentnumber']">
+                <xsl:copy-of
+                    select="front/teiHeader/fileDesc/publicationStmt/idno[@type='documentnumber']"
+                />
             </xsl:if>
             <xsl:if test="front/teiHeader/profileDesc/langUsage/language">
                 <xsl:element name="lang">
