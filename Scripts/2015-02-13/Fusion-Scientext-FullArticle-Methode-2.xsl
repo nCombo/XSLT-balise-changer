@@ -237,7 +237,7 @@
             </xsl:if>
             <xsl:if test="front/teiHeader/profileDesc/langUsage/language">
                 <xsl:element name="lang">
-                    <xsl:attribute name="xml:id">
+                    <xsl:attribute name="xml:lang">
                         <xsl:value-of select="front/teiHeader/profileDesc/langUsage/language/@ident"
                         />
                     </xsl:attribute>
@@ -256,6 +256,11 @@
     <xsl:template name="IMPRIMATUR">
         <xsl:if test="front/teiHeader/fileDesc/publicationStmt/availability">
             <xsl:element name="imprimatur">
+                <xsl:for-each select="@*">
+                    <xsl:attribute name="{name()}">
+                        <xsl:value-of select="."/>
+                    </xsl:attribute>
+                </xsl:for-each>
                 <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/availability/child::*"
                 />
             </xsl:element>

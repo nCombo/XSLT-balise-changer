@@ -241,75 +241,29 @@
     </xsl:template>
 
     <xsl:template name="DOCEDITION">
-        <docEdition>
-            <xsl:call-template name="BIBLFULL"/>
-        </docEdition>
+        <xsl:element name="docEdition">
+            <xsl:call-template name="BIBL"/>
+        </xsl:element>
     </xsl:template>
-
-    <xsl:template name="BIBLFULL">
-        <biblFull>
-            <xsl:call-template name="TITLESTMT"/>
-            <xsl:call-template name="PUBLICATIONSTMT"/>
-            <xsl:call-template name="EDITIONSTMT"/>
-        </biblFull>
-    </xsl:template>
-
-    <xsl:template name="TITLESTMT">
-        <titleStmt>
+    
+    <xsl:template name="BIBL">
+        <xsl:element name="bibl">
             <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title">
-                <title>
-                    <xsl:copy-of
-                        select="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title/child::*"
-                    />
-                </title>
+                <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title"/>
             </xsl:if>
-            <xsl:call-template name="RESPSTMT"/>
-        </titleStmt>
-    </xsl:template>
-
-    <xsl:template name="RESPSTMT">
-        <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/respStmt">
-            <respStmt>
-                <xsl:if test="resp">
-                    <resp>
-                        <xsl:copy-of select="resp/child::*"/>
-                    </resp>
-                </xsl:if>
-                <xsl:if test="name">
-                    <name>
-                        <xsl:copy-of select="name/child::*"/>
-                    </name>
-                </xsl:if>
-            </respStmt>
-        </xsl:for-each>
-    </xsl:template>
-
-    <xsl:template name="PUBLICATIONSTMT">
-        <publicationStmt>
-            <date>
-                <xsl:copy-of
-                    select="front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/date/child::*"
-                />
-            </date>
-            <idno>
-                <xsl:attribute name="type">
-                    <xsl:value-of
-                        select="front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno/@type"
-                    />
-                </xsl:attribute>
-                <xsl:copy-of
-                    select="front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno/child::*"
-                />
-            </idno>
-        </publicationStmt>
-    </xsl:template>
-
-    <xsl:template name="EDITIONSTMT">
-        <xsl:for-each select="front/teiHeader/fileDesc/titleStmt/editor">
-            <editionStmt>
+            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/respStmt">
                 <xsl:copy-of select="."/>
-            </editionStmt>
-        </xsl:for-each>
+            </xsl:for-each>
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/date">
+                <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/date"/>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno[@type='pp']">
+                <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno[@type='pp']"/>
+            </xsl:if>
+            <xsl:for-each select="front/teiHeader/fileDesc/titleStmt/editor">
+                <xsl:copy-of select="."/>
+            </xsl:for-each>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template name="DIV">
