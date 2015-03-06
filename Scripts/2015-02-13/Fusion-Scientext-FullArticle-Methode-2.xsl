@@ -31,7 +31,6 @@
             <xsl:apply-templates select="publicationStmt"/>
             <xsl:apply-templates select="sourceDesc"/>
         </xsl:copy>
-        <!--<xsl:copy-of select="."/>-->
     </xsl:template>
     
     <xsl:template match="titleStmt">
