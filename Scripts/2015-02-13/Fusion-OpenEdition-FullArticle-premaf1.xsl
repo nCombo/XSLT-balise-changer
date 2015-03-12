@@ -18,7 +18,14 @@
     <xsl:strip-space elements="xsl:*"/>
     <xsl:output method="xml" version="1.0" indent="yes" encoding="UTF-8"/>
 
-    <xsl:template match="TEI | teiHeader">
+    <xsl:template match="TEI">
+        <xsl:copy>
+            <xsl:namespace name="ns"><xsl:text>http://standoff.proposal</xsl:text></xsl:namespace>
+            <xsl:apply-templates/>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="teiHeader">
         <xsl:copy>
             <xsl:apply-templates/>
         </xsl:copy>
@@ -141,26 +148,20 @@
     <!-- STDF level -->
     <xsl:template match="stdf">
         <xsl:if test="spanGrp[@type='wordForms']">
-            <xsl:element name="stdf">
+            <xsl:element name="ns:stdf">
                 <xsl:apply-templates select="spanGrp[@type='wordForms']"/>
             </xsl:element>
         </xsl:if>
         <xsl:if test="spanGrp[@type='candidatsTermes']">
-            <xsl:element name="stdf">
+            <xsl:element name="ns:stdf">
                 <xsl:apply-templates select="spanGrp[@type='candidatsTermes']"/>
             </xsl:element>
         </xsl:if>
-        <!--<xsl:for-each select="spanGrp">
-            <xsl:element name="stdf">
-                <xsl:apply-templates select="spanGrp[@type='wordForms']"/>-->
-                <!--<xsl:copy-of select="*"/>-->
-           <!-- </xsl:element>
-        </xsl:for-each>-->
     </xsl:template>
     
     <xsl:template match="spanGrp[@type='wordForms']">
         <xsl:variable name="spanGrpType" select="@type"/>
-        <xsl:element name="soHeader">
+        <xsl:element name="ns:soHeader">
             <xsl:element name="tei:encodingDesc">
                 <xsl:element name="appInfo">
                     <xsl:element name="application">
@@ -177,14 +178,14 @@
                 </xsl:element>
             </xsl:element>
         </xsl:element>
-        <xsl:element name="annotations">
+        <xsl:element name="ns:annotations">
             <xsl:copy-of select="child::node()"/>
         </xsl:element>
     </xsl:template>
     
     <xsl:template match="spanGrp[@type='candidatsTermes']">
         <xsl:variable name="spanGrpType" select="@type"/>
-        <xsl:element name="soHeader">
+        <xsl:element name="ns:soHeader">
             <xsl:element name="tei:encodingDesc">
                 <xsl:element name="appInfo">
                     <xsl:element name="application">
@@ -201,7 +202,7 @@
                 </xsl:element>
             </xsl:element>
         </xsl:element>
-        <xsl:element name="annotations">
+        <xsl:element name="ns:annotations">
             <xsl:copy-of select="child::node()"/>
         </xsl:element>
     </xsl:template>
