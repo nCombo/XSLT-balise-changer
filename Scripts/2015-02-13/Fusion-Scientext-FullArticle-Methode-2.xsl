@@ -17,13 +17,7 @@
 
     <xsl:strip-space elements="xsl:*"/>
     <xsl:output method="xml" version="1.0" indent="yes" encoding="UTF-8"/>
-
-    <!--<xsl:template match="TEI | teiHeader">
-        <xsl:copy>
-            <xsl:apply-templates/>
-        </xsl:copy>
-        </xsl:template>-->
-    
+ 
     <xsl:template match="TEI">
         <xsl:copy>
             <xsl:namespace name="ns"><xsl:text>http://standoff.proposal</xsl:text></xsl:namespace>
