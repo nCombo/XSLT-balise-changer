@@ -381,7 +381,7 @@
         </xsl:if>
     </xsl:template>
     
-    <!-- BACK level -->
+    <!--== BACK level ==-->
     <xsl:template name="BACK">
         <xsl:if test="back">
             <xsl:element name="back">
