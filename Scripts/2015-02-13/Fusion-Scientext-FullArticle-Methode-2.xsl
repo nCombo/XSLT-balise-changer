@@ -21,10 +21,12 @@
     <xsl:template match="TEI">
         <xsl:copy>
             <xsl:namespace name="ns"><xsl:text>http://standoff.proposal</xsl:text></xsl:namespace>
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="teiHeader"/>
+            <xsl:apply-templates select="stdf"/>
+            <xsl:apply-templates select="text"/>
         </xsl:copy>
     </xsl:template>
-    
+    <!--=== TEIHEADER level : start ===-->
     <xsl:template match="teiHeader">
         <xsl:copy>
             <xsl:apply-templates/>
@@ -148,11 +150,8 @@
     <xsl:template match="abstract">
         <xsl:copy-of select="."/>
     </xsl:template>
-    
-    <xsl:template match="stdf">
-        <xsl:copy-of select="."/>
-    </xsl:template>
-
+    <!--=== TEIHEADER level : end ===-->
+	<!--=== TEXT level : start ===-->
     <!-- TEXT level: copy and modify nodes-->
     <xsl:template match="text">
         <xsl:element name="text">
@@ -390,7 +389,8 @@
             </xsl:element>
         </xsl:if>
     </xsl:template>
-    <!-- STDF level -->
+	<!--=== TEXT level : end ===-->
+    <!--=== STDF level : start ===-->
     <xsl:template match="stdf">
         <xsl:element name="ns:stdf">
             <xsl:copy-of select="*"/>
