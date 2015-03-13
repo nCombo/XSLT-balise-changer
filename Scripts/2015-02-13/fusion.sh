@@ -6,5 +6,5 @@ for f in /home/combo/Documents/fusion/fichiers_fusionnés_avant_mapping/*.xml
 		filename=$(basename "$f")
 		echo $f 
 		echo $filename
-			xsltproc /home/combo/Documents/fusion/Fusion-OpenEdition-FullArticle.xsl $f > /home/combo/Documents/fusion/fusion_after_mapping/$filename
+			saxonb-xslt -s:$f -xsl:Fusion-Scientext-FullArticle-Methode-2.xsl -o:/home/combo/Documents/fusion/fusion_after_mapping/$filename
 done
