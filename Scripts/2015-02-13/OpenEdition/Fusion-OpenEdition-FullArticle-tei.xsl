@@ -325,17 +325,6 @@
     <!-- abstract in front -->
     <xsl:template name="ABSTRACT">
         <xsl:for-each select="front/div">
-            <!--<xsl:variable name="abstractLanguage" select="@xml:lang"/>
-            <xsl:variable name="divType" select="@type"/>
-            <xsl:element name="div">
-                <xsl:attribute name="type">
-                    <xsl:value-of select="$divType"/>
-                </xsl:attribute>
-                <xsl:attribute name="xml:lang">
-                    <xsl:value-of select="$abstractLanguage"/>
-                </xsl:attribute>
-                <xsl:copy-of select="child::node()"/>
-                </xsl:element>-->
             <xsl:copy-of select="."/>
         </xsl:for-each>
         <xsl:for-each select="front/note">
