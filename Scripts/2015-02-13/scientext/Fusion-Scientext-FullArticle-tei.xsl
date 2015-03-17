@@ -172,7 +172,14 @@
     <!-- informations contained in front out of teiHeader -->
     <xsl:template name="NAME">
         <xsl:for-each select="front/div">
-            <xsl:copy-of select="."/>
+            <xsl:element name="div">
+                <xsl:for-each select="@*">
+                    <xsl:attribute name="{name()}">
+                        <xsl:value-of select="."/>
+                    </xsl:attribute>
+                </xsl:for-each>
+                <xsl:copy-of select="child::node()|text()"/>
+            </xsl:element>
         </xsl:for-each>
     </xsl:template>
 
@@ -278,7 +285,7 @@
                         <xsl:value-of select="front/teiHeader/profileDesc/langUsage/language/@ident"
                         />
                     </xsl:attribute>
-                    <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::*"/>
+                    <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::node()|text()"/>
                 </xsl:element>
             </xsl:if>
             <!-- project description -->
