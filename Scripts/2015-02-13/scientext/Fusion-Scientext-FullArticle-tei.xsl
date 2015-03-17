@@ -265,7 +265,7 @@
             </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/publicationStmt/date">
                 <xsl:element name="docDate">
-                    <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/date/child::*"/>
+                    <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/date/child::text()"/>
                 </xsl:element>
             </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/publicationStmt/idno">
@@ -275,7 +275,7 @@
                 <xsl:element name="ref">
                     <xsl:attribute name="type">url</xsl:attribute>
                     <xsl:copy-of
-                        select="front/teiHeader/fileDesc/publicationStmt/idno[@type='url']/child::*"
+                        select="front/teiHeader/fileDesc/publicationStmt/idno[@type='url']/child::node()|text()"
                     />
                 </xsl:element>
             </xsl:if>
