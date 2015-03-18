@@ -290,9 +290,9 @@
     
     <xsl:template name="BIBL">
         <xsl:element name="bibl">
-            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title">
+            <!--<xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title">
                 <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title"/>
-            </xsl:if>
+            </xsl:if>-->
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/respStmt">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
