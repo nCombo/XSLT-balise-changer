@@ -125,6 +125,9 @@
             </xsl:for-each>
             <xsl:for-each select="term">
                 <xsl:element name="term">
+                    <!-- generation identifier for each term in the form 'ikwfr[index]' -->
+                    <!-- index ID is reset for each document -->
+                    <!-- identifier on each document at a time T -->
                     <xsl:attribute name="xml:id">
                         <xsl:value-of select="concat('ikwfr',count(./preceding-sibling::term)+1)"/>
                     </xsl:attribute>
