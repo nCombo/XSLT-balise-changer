@@ -279,8 +279,10 @@
     <xsl:template name="IMPRIMATUR">
         <xsl:if test="front/teiHeader/fileDesc/publicationStmt/availability/p">
             <xsl:element name="imprimatur">
-                <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/availability/p/text()"
-                />
+                <xsl:element name="s">
+                    <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/availability/p/text()"
+                    />
+                </xsl:element>                
             </xsl:element>
         </xsl:if>
     </xsl:template>
@@ -331,6 +333,12 @@
             <xsl:copy-of select="."/>
         </xsl:for-each>
         <xsl:for-each select="front/note">
+            <xsl:copy-of select="."/>
+        </xsl:for-each>
+        <xsl:for-each select="front/anchor">
+            <xsl:copy-of select="."/>
+        </xsl:for-each>
+        <xsl:for-each select="front/p">
             <xsl:copy-of select="."/>
         </xsl:for-each>
     </xsl:template>
