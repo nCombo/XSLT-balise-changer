@@ -314,7 +314,7 @@
     <!-- export textClass/keywords to a div element out of titlePage element -->
     <xsl:template name="DIV">
         <xsl:for-each select="front/teiHeader/profileDesc/textClass/keywords">
-            <xsl:variable name="keywordLanguage" select="@lang"/>
+            <xsl:variable name="keywordLanguage" select="@xml:lang"/>
             <xsl:element name="div">
                 <xsl:attribute name="type">keyword</xsl:attribute>
                 <xsl:attribute name="xml:lang">
