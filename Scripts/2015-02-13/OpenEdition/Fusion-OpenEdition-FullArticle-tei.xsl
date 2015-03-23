@@ -163,8 +163,8 @@
     <xsl:template name="FRONT">
         <xsl:element name="front">
             <xsl:call-template name="TITLEPAGE"/>
-            <xsl:call-template name="DIV"/>
             <xsl:call-template name="ABSTRACT"/>
+            <xsl:call-template name="DIV"/>
         </xsl:element>
     </xsl:template>
 
@@ -329,17 +329,8 @@
     
     <!-- abstract in front -->
     <xsl:template name="ABSTRACT">
-        <xsl:for-each select="front/div">
-            <xsl:copy-of select="."/>
-        </xsl:for-each>
-        <xsl:for-each select="front/note">
-            <xsl:copy-of select="."/>
-        </xsl:for-each>
-        <xsl:for-each select="front/anchor">
-            <xsl:copy-of select="."/>
-        </xsl:for-each>
-        <xsl:for-each select="front/p">
-            <xsl:copy-of select="."/>
+        <xsl:for-each select="front">
+            <xsl:copy-of select="*[not(teiHeader)]"/>
         </xsl:for-each>
     </xsl:template>
     
