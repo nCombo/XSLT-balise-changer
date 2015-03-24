@@ -302,8 +302,6 @@
                 <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/availability/p">
                     <xsl:element name="s"><xsl:copy-of select="text()"/></xsl:element>
                 </xsl:for-each>
-                <!--<xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/availability/child::*"
-                />-->
             </xsl:element>
         </xsl:if>
     </xsl:template>

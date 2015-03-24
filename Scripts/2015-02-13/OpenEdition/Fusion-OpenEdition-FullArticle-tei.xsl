@@ -329,8 +329,8 @@
     
     <!-- abstract in front -->
     <xsl:template name="ABSTRACT">
-        <xsl:for-each select="front">
-            <xsl:copy-of select="*[not(teiHeader)]"/>
+        <xsl:for-each select="front/*[not(self::teiHeader)]">
+            <xsl:copy-of select="."/>
         </xsl:for-each>
     </xsl:template>
     
