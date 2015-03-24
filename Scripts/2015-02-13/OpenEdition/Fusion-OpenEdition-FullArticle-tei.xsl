@@ -206,6 +206,7 @@
                 <xsl:call-template name="AFFILIATION"/>
                 <xsl:call-template name="EMAIL"/>
                 <xsl:call-template name="ROLENAME"/>
+                <xsl:call-template name="REF"/>
             </xsl:element>
         </xsl:for-each>
     </xsl:template>
@@ -236,6 +237,12 @@
     <xsl:template name="ROLENAME">
         <xsl:if test="roleName">
             <xsl:copy-of select="roleName"/>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="REF">
+        <xsl:if test="ref">
+            <xsl:copy-of select="ref"/>
         </xsl:if>
     </xsl:template>
 
@@ -279,10 +286,14 @@
     <xsl:template name="IMPRIMATUR">
         <xsl:if test="front/teiHeader/fileDesc/publicationStmt/availability/p">
             <xsl:element name="imprimatur">
-                <xsl:element name="s">
-                    <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/availability/p/text()"
-                    />
-                </xsl:element>                
+                <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/availability/@*">
+                    <xsl:attribute name="{name()}">
+                        <xsl:value-of select="."/>
+                    </xsl:attribute>
+                </xsl:for-each>
+                <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/availability/p">
+                    <xsl:element name="s"><xsl:copy-of select="text()"/></xsl:element>
+                </xsl:for-each>
             </xsl:element>
         </xsl:if>
     </xsl:template>

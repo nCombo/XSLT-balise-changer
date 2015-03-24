@@ -294,7 +294,7 @@
     <xsl:template name="IMPRIMATUR">
         <xsl:if test="front/teiHeader/fileDesc/publicationStmt/availability">
             <xsl:element name="imprimatur">
-                <xsl:for-each select="@*">
+                <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/availability/@*">
                     <xsl:attribute name="{name()}">
                         <xsl:value-of select="."/>
                     </xsl:attribute>

@@ -224,8 +224,8 @@
     <xsl:template name="FRONT">
         <xsl:element name="front">
             <xsl:call-template name="TITLEPAGE"/>
-            <xsl:call-template name="DIV"/>
             <xsl:call-template name="ABSTRACT"/>
+            <xsl:call-template name="DIV"/>
         </xsl:element>
     </xsl:template>
 
@@ -267,6 +267,7 @@
                 <xsl:call-template name="AFFILIATION"/>
                 <xsl:call-template name="EMAIL"/>
                 <xsl:call-template name="ROLENAME"/>
+                <xsl:call-template name="REF"/>
             </xsl:element>
         </xsl:for-each>
     </xsl:template>
@@ -297,6 +298,12 @@
     <xsl:template name="ROLENAME">
         <xsl:if test="roleName">
             <xsl:copy-of select="roleName"/>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="REF">
+        <xsl:if test="ref">
+            <xsl:copy-of select="ref"/>
         </xsl:if>
     </xsl:template>
 
@@ -338,10 +345,16 @@
     </xsl:template>
 
     <xsl:template name="IMPRIMATUR">
-        <xsl:if test="front/teiHeader/fileDesc/publicationStmt/availability/p">
+        <xsl:if test="front/teiHeader/fileDesc/publicationStmt/availability">
             <xsl:element name="imprimatur">
-                <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/availability/p/child::*"
-                />
+                <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/availability/@*">
+                    <xsl:attribute name="{name()}">
+                        <xsl:value-of select="."/>
+                    </xsl:attribute>
+                </xsl:for-each>
+                <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/availability/p">
+                    <xsl:element name="s"><xsl:copy-of select="text()"/></xsl:element>
+                </xsl:for-each>
             </xsl:element>
         </xsl:if>
     </xsl:template>
@@ -388,7 +401,10 @@
     
     <!-- abstract in front -->
     <xsl:template name="ABSTRACT">
-        <xsl:for-each select="front/div">
+        <xsl:for-each select="front/*[not(self::teiHeader)]">
+            <xsl:copy-of select="."/>
+        </xsl:for-each>
+        <!--<xsl:for-each select="front/div">
             <xsl:variable name="abstractLanguage" select="@lang"/>
             <xsl:variable name="divType" select="@type"/>
             <xsl:element name="div">
@@ -403,7 +419,7 @@
         </xsl:for-each>
         <xsl:for-each select="front/note">
             <xsl:copy-of select="."/>
-        </xsl:for-each>
+        </xsl:for-each>-->
     </xsl:template>
     
     <!-- BODY level -->
