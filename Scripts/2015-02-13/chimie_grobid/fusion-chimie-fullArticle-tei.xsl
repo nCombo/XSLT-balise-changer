@@ -158,8 +158,8 @@
                 </xsl:attribute>
             </xsl:for-each>
             <xsl:call-template name="FRONT"/>
-            <!--<xsl:call-template name="BODY"/>
-            <xsl:call-template name="BACK"/>-->
+            <xsl:call-template name="BODY"/>
+            <xsl:call-template name="BACK"/>
         </xsl:element>
     </xsl:template>
     
