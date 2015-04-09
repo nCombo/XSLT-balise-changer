@@ -261,15 +261,23 @@
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/idno">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
+            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/date">
+                <xsl:copy-of select="."/>
+            </xsl:for-each>
+            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope">
+                <xsl:variable name="biblscopeType" select="@type"/>
+                <xsl:element name="biblScope">
+                    <xsl:attribute name="unit"><xsl:value-of select="$biblscopeType"/></xsl:attribute>
+                    <xsl:copy-of select="child::text()"/>
+                </xsl:element>
+            </xsl:for-each>
             <!--<xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/date">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/publisher">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
-            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprintbiblScope">
-                <xsl:copy-of select="."/>
-            </xsl:for-each>
+            
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/idno">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
