@@ -221,9 +221,6 @@
                     <xsl:copy-of select="child::text()"/>
                 </xsl:element>
             </xsl:for-each>
-            <!--<xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/publisher">
-                <xsl:copy-of select="."/>
-            </xsl:for-each>-->
     </xsl:template>
     
    <!-- <xsl:template name="IMPRIMATUR">
@@ -249,7 +246,13 @@
     
     <xsl:template name="BIBL">
         <xsl:element name="bibl">
-            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/title">
+            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/analytic/title">
+                <xsl:copy-of select="."/>
+            </xsl:for-each>
+            <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/publisher">
+                <xsl:copy-of select="."/>
+            </xsl:for-each>
+            <!--<xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/title">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/date">
@@ -266,7 +269,7 @@
             </xsl:for-each>
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/note">
                 <xsl:copy-of select="."/>
-            </xsl:for-each>
+            </xsl:for-each>-->
         </xsl:element>
     </xsl:template>
     
