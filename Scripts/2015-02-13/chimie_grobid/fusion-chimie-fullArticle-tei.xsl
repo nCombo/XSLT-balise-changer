@@ -252,6 +252,9 @@
             <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/publisher">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
+            <xsl:if test="front/teiHeader/fileDesc/publicationStmt/availability">
+                <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/availability"/>
+            </xsl:if>
             <!--<xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/title">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
