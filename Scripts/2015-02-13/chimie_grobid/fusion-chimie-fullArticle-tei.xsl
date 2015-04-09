@@ -175,7 +175,7 @@
         <xsl:element name="titlePage">
             <xsl:call-template name="DOCTITLE"/>
             <xsl:call-template name="DOCAUTHOR"/>
-            <xsl:call-template name="DOCIMPRINT"/>
+            <xsl:call-template name="DOCDATE"/>
             <!--<xsl:call-template name="IMPRIMATUR"/>-->
             <xsl:call-template name="DOCEDITION"/>
         </xsl:element>
@@ -210,8 +210,7 @@
         </xsl:for-each>
     </xsl:template>
     
-    <xsl:template name="DOCIMPRINT">
-        <xsl:element name="docImprint">
+    <xsl:template name="DOCDATE">
             <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/date">
                 <xsl:element name="docDate">
                     <xsl:for-each select="@*">
@@ -222,10 +221,9 @@
                     <xsl:copy-of select="child::text()"/>
                 </xsl:element>
             </xsl:for-each>
-            <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/publisher">
+            <!--<xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/publisher">
                 <xsl:copy-of select="."/>
-            </xsl:for-each>
-        </xsl:element>
+            </xsl:for-each>-->
     </xsl:template>
     
    <!-- <xsl:template name="IMPRIMATUR">
