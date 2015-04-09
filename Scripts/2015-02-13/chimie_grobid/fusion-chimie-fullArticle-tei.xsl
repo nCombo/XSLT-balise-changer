@@ -258,6 +258,9 @@
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/title">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
+            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/idno">
+                <xsl:copy-of select="."/>
+            </xsl:for-each>
             <!--<xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/date">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
