@@ -276,14 +276,21 @@
             </xsl:for-each>
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/publisher">
                 <xsl:copy-of select="."/>
-            </xsl:for-each>
+                </xsl:for-each>-->
             
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/idno">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/note">
                 <xsl:copy-of select="."/>
-            </xsl:for-each>-->
+            </xsl:for-each>
+            <xsl:if test="front/teiHeader[@xml:lang='fr']">
+                <xsl:variable name="teiHeaderLang" select="@xml:lang"/>
+                <xsl:element name="lang">
+                    <xsl:attribute name="xml:lang"><xsl:value-of select="$teiHeaderLang"/></xsl:attribute>
+                    <xsl:value-of select="$teiHeaderLang"/>
+                </xsl:element>
+            </xsl:if>
         </xsl:element>
     </xsl:template>
     
