@@ -254,6 +254,9 @@
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/idno">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
+            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/idno">
+                <xsl:copy-of select="."/>
+            </xsl:for-each>
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/date">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
@@ -263,10 +266,7 @@
                     <xsl:attribute name="unit"><xsl:value-of select="$biblscopeType"/></xsl:attribute>
                     <xsl:copy-of select="child::text()"/>
                 </xsl:element>
-            </xsl:for-each>
-            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/idno">
-                <xsl:copy-of select="."/>
-            </xsl:for-each>
+            </xsl:for-each>     
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/note">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
@@ -281,6 +281,7 @@
                 </xsl:element>
             </xsl:for-each>
             <!-- for CJC and Cairn -->
+            <!--ajout systématique de lang xml:lang=fr-->
             <xsl:element name="lang">
                 <xsl:attribute name="xml:lang">fr</xsl:attribute>
                 <xsl:text>fr</xsl:text>
@@ -306,10 +307,13 @@
                     <xsl:attribute name="subtype"><xsl:value-of select="$kwType"/></xsl:attribute>
                 </xsl:if>
                 <xsl:element name="list">
-                    <xsl:for-each select="./list/item/term">
+                <xsl:if test="list/head">
+                    <xsl:copy-of select="list/head"/>
+                </xsl:if>
+                    <xsl:for-each select="list/item/term">                        
                         <xsl:element name="item">
                             <xsl:copy-of select="child::text()"/>
-                        </xsl:element>
+                        </xsl:element>    
                     </xsl:for-each>
                 </xsl:element>
             </xsl:element>
