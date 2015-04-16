@@ -281,13 +281,17 @@
                 </xsl:element>
             </xsl:for-each>
             <!-- for CJC and Cairn -->
-            <xsl:if test="front/teiHeader[@xml:lang='fr']">
+            <xsl:element name="lang">
+                <xsl:attribute name="xml:lang">fr</xsl:attribute>
+                <xsl:text>fr</xsl:text>
+            </xsl:element>
+            <!--<xsl:if test="front/teiHeader[@xml:lang='fr']">
                 <xsl:variable name="teiHeaderLang" select="@xml:lang"/>
                 <xsl:element name="lang">
                     <xsl:attribute name="xml:lang"><xsl:value-of select="$teiHeaderLang"/></xsl:attribute>
                     <xsl:value-of select="$teiHeaderLang"/>
                 </xsl:element>
-            </xsl:if>
+            </xsl:if>-->
             <!-- for Elsevier -->
         </xsl:element>
     </xsl:template>
