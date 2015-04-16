@@ -219,12 +219,14 @@
     <xsl:template name="DOCDATE">
             <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/date">
                 <xsl:element name="docDate">
-                    <xsl:for-each select="@*">
-                        <xsl:attribute name="{name()}">
-                            <xsl:value-of select="."/>
-                        </xsl:attribute>
-                    </xsl:for-each>
-                    <xsl:copy-of select="child::text()"/>
+                    <xsl:element name="date">
+                        <xsl:for-each select="@*">
+                            <xsl:attribute name="{name()}">
+                                <xsl:value-of select="."/>
+                            </xsl:attribute>
+                        </xsl:for-each>
+                        <xsl:copy-of select="child::text()"/> 
+                    </xsl:element>
                 </xsl:element>
             </xsl:for-each>
     </xsl:template>
