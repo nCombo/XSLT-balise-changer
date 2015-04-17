@@ -1,5 +1,5 @@
 ####OpenEdition-FullArticle-premafv1.xsl
-This stylesheet is used for files in preMaf version 1.
+This stylesheet is used for files in TEI preMaf version 1.
 TEI preMaf version 1 contains some truncated files.
 
 ####OpenEditionFullArticle-tei.xsl
