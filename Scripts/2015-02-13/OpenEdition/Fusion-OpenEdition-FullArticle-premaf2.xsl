@@ -150,6 +150,70 @@
         <xsl:copy-of select="."/>
     </xsl:template>
     <!--=== TEIHEADER level : end ===-->
+    
+    <!--=== STDF level: start ===-->
+    <!--this level could be modified when preMaf v2 will be ready-->
+    <xsl:template match="stdf">
+        <xsl:if test="spanGrp[@type='wordForms']">
+            <xsl:element name="ns:stdf">
+                <xsl:apply-templates select="spanGrp[@type='wordForms']"/>
+            </xsl:element>
+        </xsl:if>
+        <xsl:if test="spanGrp[@type='candidatsTermes']">
+            <xsl:element name="ns:stdf">
+                <xsl:apply-templates select="spanGrp[@type='candidatsTermes']"/>
+            </xsl:element>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="spanGrp[@type='wordForms']">
+        <xsl:variable name="spanGrpType" select="@type"/>
+        <xsl:element name="ns:soHeader">
+            <xsl:element name="tei:encodingDesc">
+                <xsl:element name="appInfo">
+                    <xsl:element name="application">
+                        <xsl:attribute name="ident">acompleterparatilf</xsl:attribute><xsl:attribute name="version">acompleterparatilf</xsl:attribute>
+                        <xsl:element name="label">acompleterparatilf</xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
+            <xsl:element name="titleStmt">
+                <xsl:element name="title"><xsl:value-of select="$spanGrpType"/></xsl:element>
+                <xsl:element name="author">
+                    <xsl:attribute name="role">acompleterparatilf</xsl:attribute>
+                    <xsl:text>acompleterparatilf</xsl:text>
+                </xsl:element>
+            </xsl:element>
+        </xsl:element>
+        <xsl:element name="ns:annotations">
+            <xsl:copy-of select="child::node()"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="spanGrp[@type='candidatsTermes']">
+        <xsl:variable name="spanGrpType" select="@type"/>
+        <xsl:element name="ns:soHeader">
+            <xsl:element name="tei:encodingDesc">
+                <xsl:element name="appInfo">
+                    <xsl:element name="application">
+                        <xsl:attribute name="ident">acompleterparatilf</xsl:attribute><xsl:attribute name="version">acompleterparatilf</xsl:attribute>
+                        <xsl:element name="label">acompleterparatilf</xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
+            <xsl:element name="titleStmt">
+                <xsl:element name="title"><xsl:value-of select="$spanGrpType"/></xsl:element>
+                <xsl:element name="author">
+                    <xsl:attribute name="role">acompleterparatilf</xsl:attribute>
+                    <xsl:text>acompleterparatilf</xsl:text>
+                </xsl:element>
+            </xsl:element>
+        </xsl:element>
+        <xsl:element name="ns:annotations">
+            <xsl:copy-of select="child::node()"/>
+        </xsl:element>
+    </xsl:template>
+    
     <!--=== TEXT level : start ===-->
     <!-- TEXT level: copy and modify nodes-->
     <xsl:template match="text">
@@ -380,9 +444,9 @@
     </xsl:template>
     <!--=== TEXT level : end ===-->
     <!--=== STDF level : start ===-->
-    <xsl:template match="stdf">
+    <!--<xsl:template match="stdf">
         <xsl:element name="ns:stdf">
             <xsl:copy-of select="*"/>
         </xsl:element>
-    </xsl:template>
+    </xsl:template>-->
 </xsl:stylesheet>
