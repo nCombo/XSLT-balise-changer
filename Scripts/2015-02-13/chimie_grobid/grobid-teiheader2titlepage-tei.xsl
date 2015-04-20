@@ -345,10 +345,4 @@
         </xsl:if>
     </xsl:template>
     <!--=== TEXT level : end ===-->
-    <!--=== STDF level : start ===-->
-    <xsl:template match="stdf">
-        <xsl:element name="ns:stdf">
-            <xsl:copy-of select="*"/>
-        </xsl:element>
-    </xsl:template>
 </xsl:stylesheet>
