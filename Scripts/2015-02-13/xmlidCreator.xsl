@@ -147,6 +147,7 @@
         <xsl:copy-of select="."/>
     </xsl:template>
     <!--=== TEIHEADER level : end ===-->
+    
     <!--=== STDF level : Begin ===-->
     <xsl:template match="ns:stdf">
         <xsl:copy-of select="."/>
