@@ -1,7 +1,7 @@
-Termiths - Usefull Files
+Termith - Usefull Files
 ===================
 
-### Folders
+### Folders explications
 
 - Folder Scripts contains .xsl & .sh
 - Folder Screens contains .psd about idefix
