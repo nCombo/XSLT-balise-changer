@@ -1,4 +1,4 @@
-Termith - Usefull Files
+Termiths - Usefull Files
 ===================
 
 ### Folders
