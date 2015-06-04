@@ -28,6 +28,20 @@
     <xsl:template match="teiHeader">
         <xsl:copy>
             <xsl:apply-templates/>
+            <xsl:element name="encodingDesc">
+                <xsl:element name="projectDesc">
+                    <xsl:element name="p">
+                        <xsl:text>le présent document rassemblent des métadonnées sont issues de différents éditeurs: soit INIST-CNRS, soit de Canadian Journal of Chemestry, soit d'Elsevier ( à compléter avec Sabine) </xsl:text>
+                    </xsl:element>
+                </xsl:element>
+                <xsl:element name="editorialDecl">
+                    <xsl:element name="normalization">
+                        <xsl:element name="p">
+                            <xsl:text>Les métadonnées issues de l'INIST figurent dans l'entête du présent document. Les métadonnées issues des éditeurs sont transférées vers l'élément titlePage</xsl:text>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
     
@@ -178,6 +192,8 @@
     <xsl:template match="abstract">
         <xsl:copy-of select="."/>
     </xsl:template>
+    
+    
     <!--=== TEIHEADER level : end ===-->
     <!--=== TEXT level : start ===-->
     <!-- TEXT level: copy and modify nodes-->
@@ -316,12 +332,12 @@
                 <xsl:variable name="page1" select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='fpage']"/>
             
                 <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='lpage']">
-                <xsl:variable name="page2" select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='lpage']"/>
+                    <xsl:variable name="page2" select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='lpage']"/>
                 
-            <xsl:element name="biblScope">
-                <xsl:attribute name="unit"><xsl:text>page</xsl:text></xsl:attribute>
-                <xsl:value-of select="$page1"/><xsl:text>-</xsl:text><xsl:value-of select="$page2"/>
-            </xsl:element>
+                    <xsl:element name="biblScope">
+                        <xsl:attribute name="unit"><xsl:text>page</xsl:text></xsl:attribute>
+                            <xsl:value-of select="$page1"/><xsl:text>-</xsl:text><xsl:value-of select="$page2"/>
+                    </xsl:element>
                 </xsl:if>
             </xsl:if>
             
