@@ -30,6 +30,20 @@
     <xsl:template match="teiHeader">
         <xsl:copy>
             <xsl:apply-templates/>
+            <xsl:element name="encodingDesc">
+                <xsl:element name="projectDesc">
+                    <xsl:element name="p">
+                        <xsl:text>le présent document rassemblent des métadonnées sont issues de différents éditeurs: soit INIST-CNRS, soit de Canadian Journal of Chemestry, soit d'Elsevier ( à compléter avec Sabine) </xsl:text>
+                    </xsl:element>
+                </xsl:element>
+                <xsl:element name="editorialDecl">
+                    <xsl:element name="normalization">
+                        <xsl:element name="p">
+                            <xsl:text>Les métadonnées issues de l'INIST figurent dans l'entête du présent document. Les métadonnées issues des éditeurs sont transférées vers l'élément titlePage</xsl:text>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
     
@@ -58,8 +72,37 @@
         </xsl:element>
     </xsl:template>
     <xsl:template match="publicationStmt">
-        <xsl:copy-of select="."/>
+       <!-- <xsl:copy-of select="."/>-->
+        <xsl:copy>
+            <xsl:apply-templates select="availability"/>
+            <xsl:apply-templates select="idno"/>
+        </xsl:copy>
     </xsl:template>
+    
+    <xsl:template match="availability">
+        <xsl:copy>
+            <xsl:if test="licence">
+                <xsl:copy-of select="licence"/>
+            </xsl:if>
+            <!-- licence fournisseur -->
+            <xsl:element name="licence">
+                
+            </xsl:element>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="idno">
+        <xsl:copy-of select="."/>
+        <!-- identifiant termith: recupere le nom de fichier -->
+        <xsl:element name="idno">
+            <xsl:attribute name="type">
+                <xsl:value-of>termithIdentifier</xsl:value-of>
+            </xsl:attribute>
+            <xsl:variable name="filename" select="tokenize(base-uri(.), '/')[last()]"/>
+            <xsl:value-of select="substring-before($filename, '.')"/>
+        </xsl:element>
+    </xsl:template>
+    
     <xsl:template match="sourceDesc">
         <xsl:copy-of select="."/>
     </xsl:template>
@@ -218,13 +261,13 @@
     </xsl:template>
 
     <xsl:template name="AFFILIATION">
-        <!-- affiliation 1 -->
         <xsl:if test="affiliation">
-            <xsl:copy-of select="affiliation"/>
-        </xsl:if>
-        <!--affiliation 2 -->
-        <xsl:if test="orgName">
-            <xsl:copy-of select="orgName"/>
+            <xsl:element name="affiliation">
+                <xsl:copy-of select="affiliation/child::node()"/>
+                <xsl:if test="orgName">
+                    <xsl:copy-of select="orgName"/>
+                </xsl:if>
+            </xsl:element>                
         </xsl:if>
     </xsl:template>
 
