@@ -314,7 +314,7 @@
                     select="front/teiHeader/fileDesc/publicationStmt/idno[@type='documentnumber']"
                 />
             </xsl:if>
-            <xsl:if test="front/teiHeader/profileDesc/langUsage/language">
+            <!--<xsl:if test="front/teiHeader/profileDesc/langUsage/language">
                 <xsl:element name="lang">
                     <xsl:attribute name="xml:lang">
                         <xsl:value-of select="front/teiHeader/profileDesc/langUsage/language/@ident"
@@ -322,7 +322,7 @@
                     </xsl:attribute>
                     <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::text()"/>
                 </xsl:element>
-            </xsl:if>
+            </xsl:if>-->
         </xsl:element>
     </xsl:template>
 
@@ -367,6 +367,15 @@
             <xsl:for-each select="front/teiHeader/fileDesc/titleStmt/editor">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
+            <xsl:if test="front/teiHeader/profileDesc/langUsage/language">
+                <xsl:element name="lang">
+                    <xsl:attribute name="xml:lang">
+                        <xsl:value-of select="front/teiHeader/profileDesc/langUsage/language/@ident"
+                        />
+                    </xsl:attribute>
+                    <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::text()"/>
+                </xsl:element>
+            </xsl:if>
         </xsl:element>
     </xsl:template>
 
