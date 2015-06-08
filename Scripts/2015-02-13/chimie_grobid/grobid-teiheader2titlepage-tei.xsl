@@ -28,6 +28,7 @@
     <xsl:template match="teiHeader">
         <xsl:copy>
             <xsl:apply-templates/>
+            <!-- project description -->
             <xsl:element name="encodingDesc">
                 <xsl:element name="projectDesc">
                     <xsl:element name="p">
