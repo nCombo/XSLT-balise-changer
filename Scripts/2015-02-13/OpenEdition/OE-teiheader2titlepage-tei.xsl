@@ -33,13 +33,13 @@
             <xsl:element name="encodingDesc">
                 <xsl:element name="projectDesc">
                     <xsl:element name="p">
-                        <xsl:text>le présent document rassemblent des métadonnées sont issues de différents éditeurs: soit INIST-CNRS, soit de Canadian Journal of Chemestry, soit d'Elsevier ( à compléter avec Sabine) </xsl:text>
+                        <xsl:text>le présent document rassemblent des métadonnées sont issues de différents éditeurs: INIST-CNRS et OpenEdition ( à compléter avec Sabine) </xsl:text>
                     </xsl:element>
                 </xsl:element>
                 <xsl:element name="editorialDecl">
                     <xsl:element name="normalization">
                         <xsl:element name="p">
-                            <xsl:text>Les métadonnées issues de l'INIST figurent dans l'entête du présent document. Les métadonnées issues des éditeurs sont transférées vers l'élément titlePage</xsl:text>
+                            <xsl:text>Les métadonnées issues de l'INIST-CNRS figurent dans l'entête du présent document. Les métadonnées issues d'OpenEdition sont transférées vers l'élément titlePage</xsl:text>
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>
@@ -314,15 +314,6 @@
                     select="front/teiHeader/fileDesc/publicationStmt/idno[@type='documentnumber']"
                 />
             </xsl:if>
-            <!--<xsl:if test="front/teiHeader/profileDesc/langUsage/language">
-                <xsl:element name="lang">
-                    <xsl:attribute name="xml:lang">
-                        <xsl:value-of select="front/teiHeader/profileDesc/langUsage/language/@ident"
-                        />
-                    </xsl:attribute>
-                    <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::text()"/>
-                </xsl:element>
-            </xsl:if>-->
         </xsl:element>
     </xsl:template>
 
@@ -349,9 +340,6 @@
     
     <xsl:template name="BIBL">
         <xsl:element name="bibl">
-            <!--<xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title">
-                <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/title"/>
-            </xsl:if>-->
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblFull/titleStmt/respStmt">
                 <xsl:copy-of select="."/>
             </xsl:for-each>

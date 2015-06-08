@@ -33,13 +33,13 @@
             <xsl:element name="encodingDesc">
                 <xsl:element name="projectDesc">
                     <xsl:element name="p">
-                        <xsl:text>le présent document rassemblent des métadonnées sont issues de différents éditeurs: soit INIST-CNRS, soit de Canadian Journal of Chemestry, soit d'Elsevier ( à compléter avec Sabine) </xsl:text>
+                        <xsl:text>le présent document rassemblent des métadonnées sont issues de l'INIST-CNRS et du projet Scientext (à compléter avec Sabine) </xsl:text>
                     </xsl:element>
                 </xsl:element>
                 <xsl:element name="editorialDecl">
                     <xsl:element name="normalization">
                         <xsl:element name="p">
-                            <xsl:text>Les métadonnées issues de l'INIST figurent dans l'entête du présent document. Les métadonnées issues des éditeurs sont transférées vers l'élément titlePage</xsl:text>
+                            <xsl:text>Les métadonnées issues de l'INIST figurent dans l'entête du présent document. Les métadonnées issues du projet Scientext sont transférées vers l'élément titlePage</xsl:text>
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>
@@ -315,15 +315,6 @@
                     />
                 </xsl:element>
             </xsl:if>
-            <!--<xsl:if test="front/teiHeader/profileDesc/langUsage/language">
-                <xsl:element name="lang">
-                    <xsl:attribute name="xml:lang">
-                        <xsl:value-of select="front/teiHeader/profileDesc/langUsage/language/@ident"
-                        />
-                    </xsl:attribute>
-                    <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::text()"/>
-                </xsl:element>
-            </xsl:if>-->
             <!-- project description by editor -->
             <xsl:if test="front/teiHeader/encodingDesc/projectDesc">
                 <xsl:element name="note">
