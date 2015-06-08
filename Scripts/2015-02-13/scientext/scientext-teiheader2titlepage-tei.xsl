@@ -387,8 +387,8 @@
                 <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/date"/>
             </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/extent">
-                <xsl:element name="idno">
-                    <xsl:attribute name="type">pp</xsl:attribute>
+                <xsl:element name="biblScope">
+                    <xsl:attribute name="unit">page</xsl:attribute>
                     <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/extent/child::text()"/>
                 </xsl:element>
             </xsl:if>
