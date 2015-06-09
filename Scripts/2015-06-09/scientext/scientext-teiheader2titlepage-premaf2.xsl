@@ -75,7 +75,35 @@
     </xsl:template>
     
     <xsl:template match="publicationStmt">
+        <!--<xsl:copy-of select="."/>-->
+        <xsl:copy>
+            <xsl:apply-templates select="availability"/>
+            <xsl:apply-templates select="idno"/>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="availability">
+        <xsl:copy>
+            <xsl:if test="licence">
+                <xsl:copy-of select="licence"/>
+            </xsl:if>
+            <!-- licence fournisseur -->
+            <xsl:element name="licence">
+                
+            </xsl:element>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="idno">
         <xsl:copy-of select="."/>
+        <!-- identifiant termith: recupere le nom de fichier -->
+        <xsl:element name="idno">
+            <xsl:attribute name="type">
+                <xsl:value-of>termithIdentifier</xsl:value-of>
+            </xsl:attribute>
+            <xsl:variable name="filename" select="tokenize(base-uri(.), '/')[last()]"/>
+            <xsl:value-of select="substring-before($filename, '.')"/>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="sourceDesc">
