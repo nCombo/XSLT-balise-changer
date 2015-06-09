@@ -7,7 +7,10 @@
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> Mar 27, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b> combo</xd:p>
-            <xd:p></xd:p>
+            <xd:p><xd:b>Organization:</xd:b>INIST-CNRS</xd:p>
+            <xd:p>this styleSheet is used for corpora in TEI parsed by Grobid Tool</xd:p>
+            <xd:p>this styleSheet uses template match and call-template method</xd:p>
+            <xd:p>this styleSheet mapps teiHeader element in article to titlePage</xd:p>
         </xd:desc>
     </xd:doc>
     <xsl:strip-space elements="xsl:*"/>
@@ -25,6 +28,21 @@
     <xsl:template match="teiHeader">
         <xsl:copy>
             <xsl:apply-templates/>
+            <!-- project description -->
+            <xsl:element name="encodingDesc">
+                <xsl:element name="projectDesc">
+                    <xsl:element name="p">
+                        <xsl:text>le présent document rassemblent des métadonnées sont issues de différents éditeurs: soit INIST-CNRS, soit de Canadian Journal of Chemestry, soit d'Elsevier ( à compléter avec Sabine) </xsl:text>
+                    </xsl:element>
+                </xsl:element>
+                <xsl:element name="editorialDecl">
+                    <xsl:element name="normalization">
+                        <xsl:element name="p">
+                            <xsl:text>Les métadonnées issues de l'INIST figurent dans l'entête du présent document. Les métadonnées issues des éditeurs sont transférées vers l'élément titlePage</xsl:text>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
     
@@ -54,7 +72,35 @@
     </xsl:template>
     
     <xsl:template match="publicationStmt">
+        <!-- <xsl:copy-of select="."/> -->
+        <xsl:copy>
+            <xsl:apply-templates select="availability"/>
+            <xsl:apply-templates select="idno"/>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="availability">
+        <xsl:copy>
+            <xsl:if test="licence">
+                <xsl:copy-of select="licence"/>
+            </xsl:if>
+            <!-- licence fournisseur -->
+            <xsl:element name="licence">
+                
+            </xsl:element>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="idno">
         <xsl:copy-of select="."/>
+        <!-- identifiant termith: recupere le nom de fichier -->
+        <xsl:element name="idno">
+            <xsl:attribute name="type">
+                <xsl:value-of>termithIdentifier</xsl:value-of>
+            </xsl:attribute>
+            <xsl:variable name="filename" select="tokenize(base-uri(.), '/')[last()]"/>
+            <xsl:value-of select="substring-before($filename, '.')"/>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="sourceDesc">
@@ -147,6 +193,8 @@
     <xsl:template match="abstract">
         <xsl:copy-of select="."/>
     </xsl:template>
+    
+    
     <!--=== TEIHEADER level : end ===-->
     <!--=== TEXT level : start ===-->
     <!-- TEXT level: copy and modify nodes-->
@@ -260,13 +308,40 @@
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/date">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
-            <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope">
+            <!--<xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope">
                 <xsl:variable name="biblscopeType" select="@type"/>
                 <xsl:element name="biblScope">
-                    <xsl:attribute name="unit"><xsl:value-of select="$biblscopeType"/></xsl:attribute>
+                    <xsl:attribute name="unit">
+                         <xsl:value-of select="$biblscopeType"/>
+                     </xsl:attribute>
                     <xsl:copy-of select="child::text()"/>
                 </xsl:element>
-            </xsl:for-each>     
+                </xsl:for-each>-->
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='vol']">
+                <xsl:element name="biblScope">
+                    <xsl:attribute name="unit"><xsl:text>vol</xsl:text></xsl:attribute>
+                    <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='vol']/child::text()"/>
+                </xsl:element>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='issue']">
+                <xsl:element name="biblScope">
+                    <xsl:attribute name="unit"><xsl:text>issue</xsl:text></xsl:attribute>
+                    <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='issue']/child::text()"/>
+                </xsl:element>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='fpage']">
+                <xsl:variable name="page1" select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='fpage']"/>
+            
+                <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='lpage']">
+                    <xsl:variable name="page2" select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='lpage']"/>
+                
+                    <xsl:element name="biblScope">
+                        <xsl:attribute name="unit"><xsl:text>page</xsl:text></xsl:attribute>
+                            <xsl:value-of select="$page1"/><xsl:text>-</xsl:text><xsl:value-of select="$page2"/>
+                    </xsl:element>
+                </xsl:if>
+            </xsl:if>
+            
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/note">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
