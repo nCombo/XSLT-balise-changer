@@ -8,7 +8,7 @@
             <xd:p><xd:b>Created on:</xd:b> Feb 13, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b> combo</xd:p>
             <xd:p><xd:b>Organization:</xd:b>INIST-CNRS</xd:p>
-            <xd:p>this style sheet is used for preMaf format version 1</xd:p>
+            <xd:p>this style sheet is used for preMaf format version 2</xd:p>
             <xd:p>this style sheet is used for Open Edition corpora</xd:p>
             <xd:p>this style sheet uses template match method and call-template method</xd:p>
             <xd:p>this style sheet copies TEI element and mapps teiHeader elements to titlePage elements</xd:p>
@@ -31,6 +31,20 @@
     <xsl:template match="teiHeader">
         <xsl:copy>
             <xsl:apply-templates/>
+            <xsl:element name="encodingDesc">
+                <xsl:element name="projectDesc">
+                    <xsl:element name="p">
+                        <xsl:text>le présent document rassemblent des métadonnées sont issues de différents éditeurs: INIST-CNRS et OpenEdition ( à compléter avec Sabine) </xsl:text>
+                    </xsl:element>
+                </xsl:element>
+                <xsl:element name="editorialDecl">
+                    <xsl:element name="normalization">
+                        <xsl:element name="p">
+                            <xsl:text>Les métadonnées issues de l'INIST-CNRS figurent dans l'entête du présent document. Les métadonnées issues d'OpenEdition sont transférées vers l'élément titlePage</xsl:text>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
     
