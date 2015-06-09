@@ -5,7 +5,7 @@
     exclude-result-prefixes="#all" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" version="2.0">
     <xd:doc scope="stylesheet">
         <xd:desc>
-            <xd:p><xd:b>Created on:</xd:b> Feb 13, 2015</xd:p>
+            <xd:p><xd:b>Created on:</xd:b> Jun 09, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b>combo</xd:p>
             <xd:p><xd:b>Organization:</xd:b>INIST-CNRS</xd:p>
             <xd:p>this styleSheet is used for scientext corpora</xd:p>
@@ -30,6 +30,21 @@
     <xsl:template match="teiHeader">
         <xsl:copy>
             <xsl:apply-templates/>
+            <!-- project description -->
+            <xsl:element name="encodingDesc">
+                <xsl:element name="projectDesc">
+                    <xsl:element name="p">
+                        <xsl:text>le présent document rassemblent des métadonnées sont issues de différents éditeurs: soit INIST-CNRS, soit de Canadian Journal of Chemestry, soit d'Elsevier ( à compléter avec Sabine) </xsl:text>
+                    </xsl:element>
+                </xsl:element>
+                <xsl:element name="editorialDecl">
+                    <xsl:element name="normalization">
+                        <xsl:element name="p">
+                            <xsl:text>Les métadonnées issues de l'INIST figurent dans l'entête du présent document. Les métadonnées issues des éditeurs sont transférées vers l'élément titlePage</xsl:text>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
     
