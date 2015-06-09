@@ -318,16 +318,8 @@
                     />
                 </xsl:element>
             </xsl:if>
-            <xsl:if test="front/teiHeader/profileDesc/langUsage/language">
-                <xsl:element name="lang">
-                    <xsl:attribute name="xml:lang">
-                        <xsl:value-of select="front/teiHeader/profileDesc/langUsage/language/@ident"
-                        />
-                    </xsl:attribute>
-                    <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::*"/>
-                </xsl:element>
-            </xsl:if>
-            <!-- project description -->
+
+            <!-- project description by editor-->
             <xsl:if test="front/teiHeader/encodingDesc/projectDesc">
                 <xsl:element name="note">
                     <xsl:copy-of select="front/teiHeader/encodingDesc/projectDesc/child::node()"/>
@@ -390,13 +382,22 @@
                 <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/date"/>
             </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/extent">
-                <xsl:element name="idno">
-                    <xsl:attribute name="type">pp</xsl:attribute>
+                <xsl:element name="biblScope">
+                    <xsl:attribute name="unit">page</xsl:attribute>
                     <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/extent/child::node()"/>
                 </xsl:element>
             </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/sourceDesc/bibl/pubPlace">
                 <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/bibl/pubPlace"/>
+            </xsl:if>
+            <xsl:if test="front/teiHeader/profileDesc/langUsage/language">
+                <xsl:element name="lang">
+                    <xsl:attribute name="xml:lang">
+                        <xsl:value-of select="front/teiHeader/profileDesc/langUsage/language/@ident"
+                        />
+                    </xsl:attribute>
+                    <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::*"/>
+                </xsl:element>
             </xsl:if>
         </xsl:element>
     </xsl:template>
