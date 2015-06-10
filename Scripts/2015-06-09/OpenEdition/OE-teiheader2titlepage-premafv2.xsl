@@ -5,7 +5,7 @@
     exclude-result-prefixes="#all" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" version="2.0">
     <xd:doc scope="stylesheet">
         <xd:desc>
-            <xd:p><xd:b>Created on:</xd:b> Feb 13, 2015</xd:p>
+            <xd:p><xd:b>Created on:</xd:b> Jun 9, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b> combo</xd:p>
             <xd:p><xd:b>Organization:</xd:b>INIST-CNRS</xd:p>
             <xd:p>this style sheet is used for preMaf format version 2</xd:p>
@@ -326,14 +326,14 @@
     </xsl:template>
 
     <xsl:template name="AFFILIATION">
-        <!-- affiliation 1 -->
         <xsl:if test="affiliation">
-            <xsl:copy-of select="affiliation"/>
-        </xsl:if>
-        <!--affiliation 2 -->
-        <xsl:if test="orgName">
-            <xsl:copy-of select="orgName"/>
-        </xsl:if>
+            <xsl:element name="affiliation">
+                <xsl:copy-of select="affiliation/child::node()"/>
+                <xsl:if test="orgName">
+                    <xsl:copy-of select="orgName"/>
+                </xsl:if>
+            </xsl:element>
+        </xsl:if>   
     </xsl:template>
 
     <xsl:template name="EMAIL">
