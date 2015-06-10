@@ -2,10 +2,8 @@ Termith - Usefull Files
 ===================
 
 ### Folders explicati
-a
-b
 
 - Folder Scripts contains .xsl & .sh
 - Folder Screens contains .psd about idefix
 
-sabine
+![Link Demo & Formations](http://termith-anr.github.io/scripts-formats/)
