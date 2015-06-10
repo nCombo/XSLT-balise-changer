@@ -400,7 +400,7 @@
                     </xsl:attribute>
                 </xsl:for-each>
                 <xsl:for-each select="front/teiHeader/fileDesc/publicationStmt/availability/p">
-                    <xsl:element name="s"><xsl:copy-of select="text()"/></xsl:element>
+                    <xsl:element name="s"><xsl:copy-of select="node()"/></xsl:element>
                 </xsl:for-each>
             </xsl:element>
         </xsl:if>
