@@ -8,7 +8,7 @@
             <xd:p><xd:b>Created on:</xd:b> Jun 9, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b> combo</xd:p>
             <xd:p><xd:b>Organization:</xd:b>INIST-CNRS</xd:p>
-            <xd:p>this style sheet is used for preMaf format version 2</xd:p>
+            <xd:p>this style sheet is used for preMaf format version 2 and TEI</xd:p>
             <xd:p>this style sheet is used for Open Edition corpora</xd:p>
             <xd:p>this style sheet uses template match method and call-template method</xd:p>
             <xd:p>this style sheet copies TEI element and mapps teiHeader elements to titlePage elements</xd:p>
@@ -73,7 +73,6 @@
         </xsl:element>
     </xsl:template>
     <xsl:template match="publicationStmt">
-        <!--<xsl:copy-of select="."/>-->
         <xsl:copy>
             <xsl:apply-templates select="availability"/>
             <xsl:apply-templates select="idno"/>
@@ -363,14 +362,14 @@
                             <xsl:value-of select="."/>
                         </xsl:attribute>
                     </xsl:for-each>
-                    <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/date/child::*"/>
+                    <xsl:copy-of select="front/teiHeader/fileDesc/publicationStmt/date/child::node()"/>
                 </xsl:element>
             </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/publicationStmt/idno[@type='url']">
                 <xsl:element name="ref">
                     <xsl:attribute name="type">url</xsl:attribute>
                     <xsl:copy-of
-                        select="front/teiHeader/fileDesc/publicationStmt/idno[@type='url']/child::*"
+                        select="front/teiHeader/fileDesc/publicationStmt/idno[@type='url']/child::node()"
                     />
                 </xsl:element>
             </xsl:if>
@@ -385,7 +384,7 @@
                         <xsl:value-of select="front/teiHeader/profileDesc/langUsage/language/@ident"
                         />
                     </xsl:attribute>
-                    <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::*"/>
+                    <xsl:copy-of select="front/teiHeader/profileDesc/langUsage/language/child::node()"/>
                 </xsl:element>
             </xsl:if>
         </xsl:element>
@@ -473,7 +472,7 @@
     <xsl:template name="BODY">
         <xsl:if test="body">
             <xsl:element name="body">
-                <xsl:copy-of select="body/child::*"/>
+                <xsl:copy-of select="body/child::node()"/>
             </xsl:element>
         </xsl:if>
     </xsl:template>
@@ -482,7 +481,7 @@
     <xsl:template name="BACK">
         <xsl:if test="back">
             <xsl:element name="back">
-                <xsl:copy-of select="back/child::*"/>
+                <xsl:copy-of select="back/child::node()"/>
             </xsl:element>
         </xsl:if>
     </xsl:template>
