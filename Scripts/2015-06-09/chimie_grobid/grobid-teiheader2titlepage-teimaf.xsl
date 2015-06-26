@@ -8,7 +8,7 @@
             <xd:p><xd:b>Created on:</xd:b> Mar 27, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b> combo</xd:p>
             <xd:p><xd:b>Organization:</xd:b>INIST-CNRS</xd:p>
-            <xd:p>this styleSheet is used for corpora in TEI parsed by Grobid Tool</xd:p>
+            <xd:p>this styleSheet is used for corpora in TEI and preMaf parsed by Grobid Tool</xd:p>
             <xd:p>this styleSheet uses template match and call-template method</xd:p>
             <xd:p>this styleSheet mapps teiHeader element in article to titlePage</xd:p>
         </xd:desc>
@@ -72,7 +72,6 @@
     </xsl:template>
     
     <xsl:template match="publicationStmt">
-        <!-- <xsl:copy-of select="."/> -->
         <xsl:copy>
             <xsl:apply-templates select="availability"/>
             <xsl:apply-templates select="idno"/>
@@ -194,7 +193,7 @@
         <xsl:copy-of select="."/>
     </xsl:template>
     
-    
+
     <!--=== TEIHEADER level : end ===-->
     <!--=== TEXT level : start ===-->
     <!-- TEXT level: copy and modify nodes-->
@@ -308,15 +307,6 @@
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/date">
                 <xsl:copy-of select="."/>
             </xsl:for-each>
-            <!--<xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope">
-                <xsl:variable name="biblscopeType" select="@type"/>
-                <xsl:element name="biblScope">
-                    <xsl:attribute name="unit">
-                         <xsl:value-of select="$biblscopeType"/>
-                     </xsl:attribute>
-                    <xsl:copy-of select="child::text()"/>
-                </xsl:element>
-                </xsl:for-each>-->
             <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='vol']">
                 <xsl:element name="biblScope">
                     <xsl:attribute name="unit"><xsl:text>vol</xsl:text></xsl:attribute>
@@ -355,20 +345,11 @@
                     </xsl:element>
                 </xsl:element>
             </xsl:for-each>
-            <!-- for CJC and Cairn -->
             <!--ajout systématique de lang xml:lang=fr-->
             <xsl:element name="lang">
                 <xsl:attribute name="xml:lang">fr</xsl:attribute>
                 <xsl:text>fr</xsl:text>
             </xsl:element>
-            <!--<xsl:if test="front/teiHeader[@xml:lang='fr']">
-                <xsl:variable name="teiHeaderLang" select="@xml:lang"/>
-                <xsl:element name="lang">
-                    <xsl:attribute name="xml:lang"><xsl:value-of select="$teiHeaderLang"/></xsl:attribute>
-                    <xsl:value-of select="$teiHeaderLang"/>
-                </xsl:element>
-            </xsl:if>-->
-            <!-- for Elsevier -->
         </xsl:element>
     </xsl:template>
     
@@ -406,7 +387,7 @@
     <xsl:template name="BODY">
         <xsl:if test="body">
             <xsl:element name="body">
-                <xsl:copy-of select="body/child::*"/>
+                <xsl:copy-of select="body/child::node()"/>
             </xsl:element>
         </xsl:if>
     </xsl:template>
@@ -415,7 +396,7 @@
     <xsl:template name="BACK">
         <xsl:if test="back">
             <xsl:element name="back">
-                <xsl:copy-of select="back/child::*"/>
+                <xsl:copy-of select="back/child::node()"/>
             </xsl:element>
         </xsl:if>
     </xsl:template>
