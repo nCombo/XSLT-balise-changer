@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Sprint Review Termith N°12</title>
+
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Sprint Review N°12</h1>
+					<h3>Semaines 21- 25</h3>
+					<p>
+						<small>Par <a href="https://github.com/nCombo">@Nourdine</a> / <a href="https://github.com/MatthD">@Matthias</a></small>
+					</p>
+				</section>
+
+				<section data-background-transition="zoom" data-background="#B5533C">
+					<h2>Réalisations: </h2>
+					<p>
+						<span class="fragment">21 / 22 tâches </span> <br>
+						<span class="fragment">45.5 / 46 points</span>
+					</p>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section data-background-transition="zoom" data-background="#4D7e65">
+					<section >
+						<h2>Travaux réalisés </h2>
+						<ul>
+							<li class="fragment">Phase 3</li>
+							<li class="fragment">Bouton magique</li>
+							<li class="fragment">Bugs / Améliorations</li>
+							<li class="fragment">Nouvelle machine</li>
+							<li class="fragment">Guide</li>
+							<li class="fragment">Feuilles de style XSL</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Bouton Magique</h3>
+						<ul>
+							<li class="fragment">Scan des scores d'autres méthodes</li>
+							<li class="fragment">Si mot(s) identique(s) => répercute score & commentaire</li>
+							<li class="fragment">Affiche le nb de matchs</li>
+							<li class="fragment">Exemples : <a href="http://phase_3_2.termith.inist.fr/display/10EOAA.html">Mots Termith </a>/ <a href="http://test_phase3_3.termith.inist.fr/display/1awJGd.html">Mots INIST </a> </li>
+						</ul>
+					</section>
+					<section>
+						<h3>Bugs / Améliorations</h3>
+						<ul>
+							<li class="fragment">Version d'IDEFIX</li>
+							<li class="fragment">Filtre documents</li>
+							<li class="fragment">Recherche étendue</li>
+							<li class="fragment">Timer</li>
+							<li class="fragment">Scroll grand résumé</li>
+							<li class="fragment">Polices/Fonts interface & full-article</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Vitesse IDEFIX</h3>
+						<a href="img/IdefixSpeed.pdf" target="_blank"><img src="img/speed.png"></a>
+					</section>
+					<section>
+						<h3>Feuilles de style XSL</h3>
+						<a href="img/schemafusion.png" target="_blank"><img src="img/schemafusion.png"/></a>
+					</section>
+					<section>
+						<h3>Résultats attendus pour la TEI brut<h3>
+						<a href="img/resultatfusiontei.png" target="_blank"><img src="img/resultatfusiontei.png"/></a>
+					</section>
+				</section>
+
+				
+				
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
