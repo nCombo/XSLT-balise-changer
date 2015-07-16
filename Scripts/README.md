@@ -1,10 +1,21 @@
 Termith - Scripts
 ===================
 
+Formats used for Termith evolve continually.
+
+###2015-02-13
+
+That folder contains release from 2015-02-13
+
+###2015-06-09
+
+That folder contains release from 2015-06-09
+
 ### XSLT
 
-- Method 1 uses match method
-- Method 2 uses call-template method
+- stylesheets use match and call-template method
+- about transform,
+  - input: file.xml (requierement)
 
 ### BASH
 
