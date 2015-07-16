@@ -11,13 +11,15 @@ That folder contains release from 2015-02-13
 
 That folder contains release from 2015-06-09
 
-### XSLT
+Each folder contains:
+
+###### XSLT
 
 - stylesheets use match and call-template method
 - about transform,
   - input: file.xml (requierement)
 
-### BASH
+###### BASH
 
 - Verify-Tei.sh to verify TEI form and syntax
 - Verify-XML-LINT.sh to verify XML form and syntax
