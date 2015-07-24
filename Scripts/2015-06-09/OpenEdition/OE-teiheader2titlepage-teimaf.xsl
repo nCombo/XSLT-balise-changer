@@ -8,7 +8,7 @@
             <xd:p><xd:b>Created on:</xd:b> Jun 9, 2015</xd:p>
             <xd:p><xd:b>Author:</xd:b> combo</xd:p>
             <xd:p><xd:b>Organization:</xd:b>INIST-CNRS</xd:p>
-            <xd:p>this style sheet is used for preMaf format version 2 and TEI</xd:p>
+            <xd:p>this style sheet is used for TEI and preMaf format</xd:p>
             <xd:p>this style sheet is used for Open Edition corpora</xd:p>
             <xd:p>this style sheet uses template match method and call-template method</xd:p>
             <xd:p>this style sheet copies TEI element and mapps teiHeader elements to titlePage elements</xd:p>
@@ -34,13 +34,25 @@
             <xsl:element name="encodingDesc">
                 <xsl:element name="projectDesc">
                     <xsl:element name="p">
-                        <xsl:text>le présent document rassemblent des métadonnées sont issues de différents éditeurs: INIST-CNRS et OpenEdition ( à compléter avec Sabine) </xsl:text>
+                        <xsl:text>TermITH est un projet ANR sur 3 ans et demi (2013 - 2016) qui a pour objectif de développer une plateforme d'indexation automatique de textes en sciences humaines et sociales en fançais en s'appuyant sur les termes qu'ils contiennent.</xsl:text>
+                    </xsl:element>
+                    <xsl:element name="p">
+                        <xsl:text>Le présent document fait partie du corpus disciplinaire sur lequel les diffférents traittements développés dans TermITH sont testés.</xsl:text>
+                    </xsl:element>
+                    <xsl:element name="p">
+                        <xsl:text>Le présent document est le résultat de la fusion entre l'article en texte intégral provenant de l'editeur et sa notice bibliographique provenant de l'INIST-CNRS.</xsl:text>
+                    </xsl:element>
+                    <xsl:element name="p">
+                        <xsl:text>La fusion entre la notice et son article est réalisée par Sabine Barreaux.</xsl:text>
                     </xsl:element>
                 </xsl:element>
                 <xsl:element name="editorialDecl">
                     <xsl:element name="normalization">
                         <xsl:element name="p">
-                            <xsl:text>Les métadonnées issues de l'INIST-CNRS figurent dans l'entête du présent document. Les métadonnées issues d'OpenEdition sont transférées vers l'élément titlePage</xsl:text>
+                            <xsl:text>La notice bibliographique de l'INIST-CNRS figure dans l'entête(teiHeader)du présent document. Les métadonnées provenant de l'éditeur de l'article sont transférées vers l'élément titlePage.</xsl:text>
+                        </xsl:element>
+                        <xsl:element name="p">
+                            <xsl:text>Le transfert des informations du teiHeader de l'article est réalisé par Nourdine Combo.</xsl:text>
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>
@@ -86,7 +98,12 @@
             </xsl:if>
             <!-- licence fournisseur -->
             <xsl:element name="licence">
-                
+                <xsl:element name="p">
+                    <xsl:text>Selon la convention signée avec l'éditeur, le présent document n'est utilisable que par les partenaires du projet TermITH dans le cadre des traitements développés pour TermITH.</xsl:text>
+                </xsl:element>
+                <xsl:element name="p">
+                    <xsl:text>Ce document n'est pas diffusable en l'état.</xsl:text>
+                </xsl:element>
             </xsl:element>
         </xsl:copy>
     </xsl:template>
