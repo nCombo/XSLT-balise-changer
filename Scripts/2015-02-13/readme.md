@@ -4,3 +4,4 @@
 2. Directory 'OpenEdition' contains XSLT style sheet for files from Open Edition
 3. Directory 'chimie_grobid' contains XSLT style sheet for chemestry
 4. Directory 'scientext' contains XSLT style sheet for files from Scientext
+5. Directory 'relaxNG' contains TEI schema
