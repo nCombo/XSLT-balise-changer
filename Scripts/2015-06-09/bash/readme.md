@@ -1,12 +1,13 @@
 ###Aims of these scripts?
-1. testxmllint.sh aims to ckeck the validity of  XML file
 
-2. testxmllint.sh aims to ckeck the validity of  TEI file
+1. verifyTei.sh aims to ckeck the validity of  TEI file
 
-3. mapping.sh is used to launch a XSL style sheet
+2. verifyXmlLint.sh aims to ckeck the validity of  XML file
+
+3. teiheader2titlepage.sh is used to launch a XSL style sheet
 
 ###How to use scripts?
-1. testtei.sh
+1. verifyTei.sh
 
  Requierment:
  
@@ -25,7 +26,7 @@ bash testtei.sh /home/user/Documents/repository/
   '>> /home/user/Documents/results/results.xml' (in the script) indicates the PATH of output
 
 
-2. testxmllint.sh
+2. verifyXmlLint.sh
 
 
  Requierment:
@@ -42,8 +43,8 @@ bash testtei.sh /home/user/Documents/repository/ 2> /home/user/Documents/results
 
   '2> /home/user/Documents/results/results.xml' indicates the PATH of output
 
-3. mapping.sh
+3. teiheader2titlepage.sh
  
  Launch:
 
-  bash mapping.sh
+  bash teiheader2titlepage.sh
