@@ -14,7 +14,7 @@
 
  Launch:
  
-  If in the script, PATH of directory is explicitly mentionned like '$(ls /home/user/Documents/repository/*.xml'):
+  If in the script, PATH of directory is explicitly mentionned like '$(ls /home/user/Documents/repository/*.xml)':
   you can use 'bash testtei.sh' as Command Line.
 
   If in the script, PATH of directory is coded like this '$(ls $1/*.tei)', you have to indicate the PATH in Command Line:
@@ -22,7 +22,7 @@ bash testtei.sh /home/user/Documents/repository/
 
  Results:
 
-  '>> /home/user/Documents/results/results.xml'(in the script) indicates the PATH of output
+  '>> /home/user/Documents/results/results.xml' (in the script) indicates the PATH of output
 
 
 2. testxmllint.sh
