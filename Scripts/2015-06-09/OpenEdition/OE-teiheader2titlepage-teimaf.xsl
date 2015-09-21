@@ -27,6 +27,7 @@
             <xsl:apply-templates select="text"/>
         </xsl:copy>
     </xsl:template>
+
     <!--=== TEIHEADER level : start ===-->
     <xsl:template match="teiHeader">
         <xsl:copy>
