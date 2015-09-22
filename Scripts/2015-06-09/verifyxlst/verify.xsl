@@ -20,7 +20,7 @@
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="//w[*]">
+    <xsl:template match="teiHeader//w[*]">
         <xsl:copy-of select="node()"/>  
    </xsl:template>
 
