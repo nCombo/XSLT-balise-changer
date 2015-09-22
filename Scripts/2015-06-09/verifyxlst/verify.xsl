@@ -21,11 +21,7 @@
     </xsl:template>
     
     <xsl:template match="//w[*]">
-        <xsl:copy-of select="node()"/>
-           
-        
+        <xsl:copy-of select="node()"/>  
    </xsl:template>
 
-
-    
 </xsl:stylesheet>
