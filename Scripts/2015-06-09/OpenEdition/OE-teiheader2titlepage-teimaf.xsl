@@ -441,7 +441,10 @@
                 <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/date"/>
             </xsl:if>
             <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno[@type='pp']">
-                <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno[@type='pp']"/>
+                <xsl:element name="biblScope">
+                    <xsl:attribute name="unit"><xsl:text>page</xsl:text></xsl:attribute>
+                    <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/biblFull/publicationStmt/idno[@type='pp']/child::text()"/>
+                </xsl:element>
             </xsl:if>
             <xsl:for-each select="front/teiHeader/fileDesc/titleStmt/editor">
                 <xsl:copy-of select="."/>
