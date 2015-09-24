@@ -115,7 +115,7 @@
                 <xsl:value-of>termithIdentifier</xsl:value-of>
             </xsl:attribute>
             <xsl:variable name="filename" select="tokenize(base-uri(.), '/')[last()]"/>
-            <xsl:value-of select="substring-before($filename, '.')"/>
+            <xsl:value-of select="substring-before($filename, '.tei')"/>
         </xsl:element>
     </xsl:template>
     
