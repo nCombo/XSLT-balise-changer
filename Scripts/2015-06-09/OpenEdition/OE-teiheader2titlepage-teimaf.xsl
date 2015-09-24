@@ -343,14 +343,14 @@
     </xsl:template>
 
     <xsl:template name="AFFILIATION">
-        <xsl:if test="affiliation">
-            <xsl:element name="affiliation">
-                <xsl:copy-of select="affiliation/child::node()"/>
+        <xsl:for-each select="affiliation">
+            <!--<xsl:element name="affiliation">-->
+                <xsl:copy-of select="."/>
                 <xsl:if test="orgName">
                     <xsl:copy-of select="orgName"/>
                 </xsl:if>
-            </xsl:element>
-        </xsl:if>   
+            <!--</xsl:element>-->
+        </xsl:for-each>   
     </xsl:template>
 
     <xsl:template name="EMAIL">

@@ -336,18 +336,15 @@
                     <xsl:copy-of select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='issue']/child::text()"/>
                 </xsl:element>
             </xsl:if>
-            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='fpage']">
+            <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='fpage'or 'lpage']">
                 <xsl:variable name="page1" select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='fpage']"/>
-            
-                <xsl:if test="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='lpage']">
                     <xsl:variable name="page2" select="front/teiHeader/fileDesc/sourceDesc/biblStruct/monogr/imprint/biblScope[@type='lpage']"/>
                 
                     <xsl:element name="biblScope">
                         <xsl:attribute name="unit"><xsl:text>page</xsl:text></xsl:attribute>
                             <xsl:value-of select="$page1"/><xsl:text>-</xsl:text><xsl:value-of select="$page2"/>
                     </xsl:element>
-                </xsl:if>
-            </xsl:if>
+                </xsl:if>          
             
             <xsl:for-each select="front/teiHeader/fileDesc/sourceDesc/biblStruct/note">
                 <xsl:copy-of select="."/>
