@@ -18,6 +18,7 @@
     
     <xsl:template match="TEI">
         <xsl:copy>
+            <xsl:namespace name="ns"><xsl:text>http://standoff.proposal</xsl:text></xsl:namespace>
             <xsl:apply-templates select="teiHeader"/>
             <xsl:apply-templates select="stdf"/>
             <xsl:apply-templates select="text"/>
