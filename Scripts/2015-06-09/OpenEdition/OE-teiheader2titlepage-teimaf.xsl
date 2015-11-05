@@ -350,7 +350,10 @@
                     <xsl:copy-of select="orgName"/>
                 </xsl:if>
             <!--</xsl:element>-->
-        </xsl:for-each>   
+        </xsl:for-each>
+        <xsl:for-each select="orgName">
+            <xsl:copy-of select="."/>
+        </xsl:for-each>        
     </xsl:template>
 
     <xsl:template name="EMAIL">
