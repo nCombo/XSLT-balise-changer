@@ -13,5 +13,5 @@ Create a Shell file like this (replace the path):
 	do
 		filename=$(basename "$f")
 		echo $f
-		saxonb-xslt -s:$f -xsl:/path/stylesheet/verify.xsl -o:/outputPath/Documents/$filename
+		saxonb-xslt -s:$f -xsl:/path/stylesheet/rmW.xsl -o:/outputPath/Documents/$filename
 done ``
