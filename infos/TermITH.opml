@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+<head>
+<title>TermITH</title>
+</head>
+<body>
+<outline text="TermITH"><outline text="Programme"><outline text="Scenario 2" _note="Évaluation (texte par texte) de la pertinence des mots-clés tirés automatiquement par les robots du Lina .&#10;Avec comme référence et comparaison les mots clés INIST (Pascal,Francis) issus de ces même textes."><outline text="Phase 4"><outline text="IDEFIX 7.11.1" _note="https://github.com/termith-anr/idefix/releases/tag/v7.11.1"></outline>
+<outline text="4-6 METHODES" _note="1. Notice&amp;Body_TFIDF&#10;2. Notice&amp;Body_TOPICRANK&#10;3. Notice&amp;Body_TOPICRANK&amp;TTC&#10;4. Notice&amp;Body_TOPICCORANK&#10;5. Notice&amp;Body_TOPICCORANK&amp;TTC&#10;6. Notice&amp;Body_KEA&#10;&#10;Attention : 2 &amp; 1 ne sont pas présents en Linguistique"></outline>
+<outline text="ARTICLE  INTÉGRAL"></outline>
+<outline text="TEI (2015/02/13)" _note="Candidats termes dans des balises stdf&#10;&#10;Originalement prévu : TEI PREMAFF"></outline>
+<outline text="CHIMIE / LINGUISTIQUE / SC. INFO"></outline>
+<outline text="INIST"><outline text="Évaluateurs"><outline text="NATHALIE SABINE SIMONE VALERIE VERONIQUE"></outline>
+</outline>
+</outline>
+<outline text="ATILF"><outline text="Évaluateurs"><outline text="CORNELIA"></outline>
+</outline>
+</outline>
+</outline>
+<outline text="Phase 3"><outline text="IDEFIX 7.6.0" _note="https://github.com/termith-anr/idefix/releases/tag/v7.6.0"></outline>
+<outline text="RÈSUMÈ"></outline>
+<outline text="4-6 METHODES" _note="1. Notice_TFIDF&#10;2. Notice_TOPICRANK&#10;3. Notice_TOPICRANK&amp;TTC&#10;4. Notice_TOPICCORANK&#10;5. Notice_TOPICCORANK&amp;TTC&#10;6. Notice&amp;Body_KEA&#10;&#10;Attention : 2 &amp; 1 ne sont pas présents en Linguistique"></outline>
+<outline text="TEI (2015/02/13)" _note="Candidats termes dans des balises stdf"></outline>
+<outline text="ARCHÈOLOGIE / CHIMIE / LINGUISTIQUE / SC. INFO"></outline>
+<outline text="INIST"><outline text="Évaluateurs"><outline text="BERNARD CORALIE NATHALIE SABINE SIMONE VALERIE VERONIQUE"></outline>
+</outline>
+</outline>
+<outline text="ATILF"><outline text="Évaluateurs"><outline text="CORNELIA"></outline>
+</outline>
+</outline>
+</outline>
+<outline text="Phase 2"><outline text="IDEFIX 7.0.0" _note="https://github.com/termith-anr/idefix/releases/tag/v7.0.0"></outline>
+<outline text="LINGUISTIQUE"></outline>
+<outline text="3 METHODES" _note="1. Notice&amp;Body_TFIDF&#10;2. Notice&amp;Body_TOPICRANK&#10;3. Notice&amp;Body_TOPICRANK&amp;TTC"></outline>
+<outline text="ARTICLE  INTÉGRAL"></outline>
+<outline text="TEI (2015/02/13)" _note="Candidats termes dans des balises stdf"></outline>
+<outline text="INIST"><outline text="Évaluateurs"><outline text="SABINE"></outline>
+</outline>
+</outline>
+</outline>
+<outline text="Phase 1"><outline text="IDEFIX 3.0" _note="https://github.com/termith-anr/idefix/releases/tag/v3.0.0"></outline>
+<outline text="RÈSUMÈ"></outline>
+<outline text="TEI (2014/11/01)"></outline>
+<outline text="LINGUISTIQUE"></outline>
+<outline text="2 METHODES" _note="1. Notice_TFIDF_Nom&amp;Adj&#10;2. Notice_TOPICRANK_Nom&amp;Adj"></outline>
+<outline text="INIST"><outline text="Évaluateurs"><outline text="SABINE"></outline>
+</outline>
+</outline>
+</outline>
+</outline>
+<outline text="Scenario 1" _note="Validation des termes à  ajouter dans les ressources terminologiques&#10;&#10;Utilisation de totem, d’excel et dans une moindre mesure d’ITM"></outline>
+</outline>
+<outline text="Outils"><outline text="MergeXML3CSV1" _note="Script node permettant de reporter les résultats CSV de la phase 1 du scénario 2 dans des fichiers XML de phase 3 du sc2.&#10;&#10;Logiciel : https://github.com/termith-anr/mergePhase1and3"></outline>
+<outline text="CorrespSmatiesConvert" _note="Script node permettant l’attribution de correspondant unique pour les fichiers Scénario 1 &#10;&#10;Cause :  Passage version TTC termsuite 1.4-&gt;2.0&#10;&#10;Liens : https://github.com/termith-anr/CorrespSmartiesConversion"></outline>
+<outline text="TOTEM" _note="Permet d’effectuer une recherche d’un mot dans un corpus tokenisé au format premaff. &#10;Il reçoit l&apos;identifiant d&apos;un terme desambiguisé et retourne les paragraphes (contextes) oû ce mot est situé&#10;&#10;Forme de concordancier&#10;&#10;Logiciel : http://github.com/termith-anr/totem"></outline>
+<outline text="ITM" _note="Il nous permet d’effectuer des alignements grâce à  3 algos &#10;&#10;concrètement il compare des chaines de caractère et retourne une liste de match avec un score&#10;&#10;Algo :&#10;« SubsDist Name Alignment » SMOA&#10;- alignement sur chaÃ®ne de caractères&#10;- alignement en se basant sur les attributs de type Â« nom Â» seulement&#10;- les relations créées sont toujours des « exact match »&#10;- Ces 2 algorithmes ont sensiblement le même fonctionnement au sein d’ITM/ITM Match, mais avec 2 classes java différentes, donc des résultats légèrement différents&#10;AROMA&#10;- utilisation sur chaine de caractères et utilisation de la hiérarchie des termes&#10;- alignement en se basant sur les attributs de type « nom » et « texte »&#10;- les relations créées sont des « exact match »; « broader match », « narrow match »"></outline>
+<outline text="IDEFIX" _note="Affiche les donnés d’un élément TEI , fichier par fichier&#10;&#10;Il permet aussi de jouer avec les mots-clés&#10;&#10;Tuto : https://termith-anr.github.io/scripts-formats/formation/&#10;&#10;Logiciel : https://github.com/termith-anr/idefix&#10;&#10;Guide : https://termith-anr.github.io/scripts-formats/guides/readme.pdf"></outline>
+</outline>
+<outline text="Données"><outline text="XML"><outline text="TEI"><outline text="v2015/06/10"></outline>
+<outline text="v2015/02/13"></outline>
+<outline text="v2014/11/01"></outline>
+</outline>
+<outline text="TBX" _note="La liste des candidats termes du scénario 1 est en TBX&#10;&#10;Les ressources INIST (ML,MX ..) sont en TBX"></outline>
+<outline text="RDF" _note="Format d’entrée d’ITM ,.&#10;Prend obligatoirement un identifiant , une url . &#10;Peut prendre des variantes"></outline>
+<outline text="SKOS" _note="Format minimaliste .&#10;&#10;Mauvais en sortie d’ITM pour être exploiter car ne renvoie que les ID des match sans le score"></outline>
+<outline text="ALIGN" _note="Format propriétaire de mondera , ressors les ID match avec le score."></outline>
+<outline text="TEI PREMAFF" _note="Ce format ne sera jamais utilisé le scénario 2 . II s’agit en revanche du format d’entrée obligatoire pour TOTEM"><outline text="v2015/02/13"></outline>
+</outline>
+<outline text="EOLOD" _note="Format propriétaire de mondera , ressors les ID match avec le score."></outline>
+</outline>
+<outline text="CSV"></outline>
+</outline>
+</outline>
+</body>
+</opml>
