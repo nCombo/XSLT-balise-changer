@@ -333,7 +333,6 @@
                 </xsl:if>
                 <xsl:for-each select="name">
                     <xsl:element name="persName">
-                        <xsl:element name="name">
                             <xsl:if test="@id">
                                 <xsl:attribute name="xml:id"><xsl:copy-of select="@id"/></xsl:attribute>
                             </xsl:if>
@@ -349,7 +348,6 @@
                                     <xsl:copy-of select="child::node()"/>
                                 </xsl:element>
                             </xsl:for-each>-->
-                        </xsl:element>
                     </xsl:element>
                 </xsl:for-each>
             </xsl:element>
@@ -401,6 +399,7 @@
             <!-- project description by editor-->
             <xsl:if test="front/teiHeader/encodingDesc/projectDesc">
                 <xsl:element name="note">
+                    <xsl:attribute name="type">projectDesc</xsl:attribute>
                     <xsl:copy-of select="front/teiHeader/encodingDesc/projectDesc/child::node()"/>
                 </xsl:element>
             </xsl:if>
