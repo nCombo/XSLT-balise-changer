@@ -457,7 +457,15 @@
         <xsl:for-each select="front/teiHeader/profileDesc/textClass/keywords">
             <xsl:variable name="keywordLanguage" select="@xml:lang"/>
             <xsl:element name="div">
-                <xsl:attribute name="type">keyword</xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="@scheme='keyword'">
+                        <xsl:attribute name="type">keyword</xsl:attribute>  
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="type">keyword</xsl:attribute>
+                        <xsl:attribute name="subtype"><xsl:copy-of select="@scheme"/></xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:if test="$keywordLanguage != ''">
                     <xsl:attribute name="xml:lang">
                         <xsl:value-of select="$keywordLanguage"/>
