@@ -9,7 +9,7 @@
 ###How to use scripts?
 1. verifyTei.sh
 
- Requierment:
+ Requirement:
  
   install jing module
 
@@ -29,7 +29,7 @@ bash testtei.sh /home/user/Documents/repository/
 2. verifyXmlLint.sh
 
 
- Requierment:
+ Requirement:
  
   install xmllint module
 
@@ -45,6 +45,32 @@ bash testtei.sh /home/user/Documents/repository/ 2> /home/user/Documents/results
 
 3. teiheader2titlepage.sh
  
+ Requirement:
+
+  install either the "saxonb-xslt" tool or a saxon jarfile (such as "saxon9he.jar")
+ 
  Launch:
 
-  bash teiheader2titlepage.sh
+  * with saxonb-xslt:
+  
+    > for a full directory of XML files (with .xml extension):
+  
+        teiheader2titlepage.sh -d directory -o output_directory -x xslt_file
+
+    > for a single file:
+    
+        teiheader2titlepage.sh -f xml_file -o output_file -x xslt_file
+
+  * with a saxon jarfile:
+  
+    > for a full directory of XML files (with .xml extension):
+  
+        teiheader2titlepage.sh -d directory -o output_directory -x xslt_file -j /path/to/saxon.jar
+
+    > for a single file:
+    
+        teiheader2titlepage.sh -f xml_file -o output_file -x xslt_file -j /path/to/saxon.jar
+
+
+
+
