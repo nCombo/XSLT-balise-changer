@@ -53,23 +53,23 @@ bash testtei.sh /home/user/Documents/repository/ 2> /home/user/Documents/results
 
   * with saxonb-xslt:
   
-    > for a full directory of XML files (with .xml extension):
+    * for a full directory of XML files (with .xml extension):
   
-        teiheader2titlepage.sh -d directory -o output_directory -x xslt_file
+                teiheader2titlepage.sh -d directory -o output_directory -x xslt_file
 
-    > for a single file:
+    * for a single file:
     
-        teiheader2titlepage.sh -f xml_file -o output_file -x xslt_file
+                teiheader2titlepage.sh -f xml_file -o output_file -x xslt_file
 
   * with a saxon jarfile:
   
-    > for a full directory of XML files (with .xml extension):
+    * for a full directory of XML files (with .xml extension):
   
-        teiheader2titlepage.sh -d directory -o output_directory -x xslt_file -j /path/to/saxon.jar
+                teiheader2titlepage.sh -d directory -o output_directory -x xslt_file -j /path/to/saxon.jar
 
-    > for a single file:
+    * for a single file:
     
-        teiheader2titlepage.sh -f xml_file -o output_file -x xslt_file -j /path/to/saxon.jar
+                teiheader2titlepage.sh -f xml_file -o output_file -x xslt_file -j /path/to/saxon.jar
 
 
 
